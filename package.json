@@ -4,12 +4,15 @@
     "description": "Aflorithmic NodeJS SDK",
     "author": "github.com/aflr",
     "license": "MIT",
-    "repository": "aflr_npm",
     "main": "index.js",
     "keywords": [
         "aflr",
         "npm",
         "aflorithmic",
         "package"
-    ]
+    ],
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/aflorithmic/aflr_npm.git"
+    }
 }
