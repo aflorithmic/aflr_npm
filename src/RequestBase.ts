@@ -1,6 +1,6 @@
 import axios, { AxiosInstance, AxiosPromise } from "axios";
 
-interface Urls {
+interface IUrls {
   singularUrl: string;
   pluralUrl: string;
 }
@@ -8,9 +8,9 @@ interface Urls {
 export { AxiosPromise };
 export class RequestBase {
   private axios: AxiosInstance;
-  private urls: Urls;
+  private urls: IUrls;
 
-  constructor(apiKey: string, urls: Urls) {
+  constructor(apiKey: string, urls: IUrls) {
     this.axios = axios.create({ headers: { "x-api-key": apiKey } });
     this.urls = urls;
   }
