@@ -1,6 +1,6 @@
 {
   "name": "aflr",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Aflorithmic NodeJS SDK",
   "author": "salih <salih@aflorithmic.ai>",
   "license": "MIT",
