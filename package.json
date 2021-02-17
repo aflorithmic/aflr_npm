@@ -25,7 +25,7 @@
     "prepublishOnly": "npm test && npm run lint",
     "preversion": "npm run lint",
     "version": "npm run format && git add -A src",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push origin && git push origin --tags"
   },
   "bugs": {
     "url": "https://github.com/aflorithmic/aflr_npm/issues"
