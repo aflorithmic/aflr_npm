@@ -32,7 +32,7 @@ export class SpeechClass {
     if (!this.initialized) {
       return isInitializedError();
     }
-    return this.RequestClass.postRequest(data);
+    return this.RequestClass.postRequest({ ...data, api: false });
   }
 }
 
