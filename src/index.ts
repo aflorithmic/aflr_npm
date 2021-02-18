@@ -1,2 +1,4 @@
-import { Script } from "./Script";
-export { Script };
+import { Aflr } from "./Aflr";
+export { Script } from "./Script";
+
+export default Aflr;
