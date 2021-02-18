@@ -4,7 +4,29 @@
 
 ## Documentation
 
-will be added
+### Installation
+
+`yarn add aflr` or `npm install --save aflr`
+
+### Import and Usage
+
+It can be used by a **singular import** or **modular imports**.
+
+```javascript
+import Aflr from "aflr";
+
+Aflr.configure();
+
+Aflr.Script.list();
+```
+
+```javascript
+import Aflr, { Script, Voice, Speech } from "aflr";
+
+Aflr.configure();
+
+Script.list();
+```
 
 ## Development notes
 
