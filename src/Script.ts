@@ -2,7 +2,7 @@ import { Aflr } from "./Aflr";
 import { API_BASE_URL } from "./constants";
 import { isInitializedError } from "./Errors";
 import { AxiosPromise, RequestBase } from "./RequestBase";
-import { IConfig } from "./types";
+import { IConfig, IScriptBody } from "./types";
 
 const url: string = `${API_BASE_URL}/script`;
 
@@ -11,7 +11,7 @@ export class ScriptClass {
   private initialized: boolean = false;
   private RequestClass!: RequestBase;
 
-  public configure(config: IConfig = this.config) {
+  public configure(config: IConfig = this.config): void {
     this.initialized = true;
     this.RequestClass = new RequestBase(config.apiKey, url);
   }
@@ -30,8 +30,7 @@ export class ScriptClass {
     return this.RequestClass.getRequest(false, scriptId);
   }
 
-  public create(data: any): Promise<AxiosPromise> {
-    // TODO: implement script param types
+  public create(data: IScriptBody): Promise<AxiosPromise> {
     if (!this.initialized) {
       return isInitializedError();
     }

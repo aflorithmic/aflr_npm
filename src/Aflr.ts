@@ -2,7 +2,7 @@ import { isValidApiKeyError } from "./Errors";
 import { IConfig } from "./types";
 
 interface IComponent {
-  configure(config: IConfig): any | void;
+  configure(config: IConfig): void;
 }
 
 class AflrClass {
