@@ -1,7 +1,9 @@
+import Aflr from "../index";
 import { Script } from "../Script";
 
 test("First test", () => {
-  const obj = new Script("some-api-key");
+  Aflr.configure({ apiKey: "some-api-key" });
+  const obj = Script;
   expect(obj).toHaveProperty("list");
   expect(obj).toHaveProperty("create");
   expect(obj).toHaveProperty("retrieve");
