@@ -16,7 +16,7 @@ export class RequestBase {
         const { data: result } = await this.axios.post(this.url, data);
         res(result);
       } catch (e) {
-        rej(e);
+        rej(e.response);
       }
     });
   }
@@ -32,7 +32,7 @@ export class RequestBase {
         const { data: result } = await this.axios.get(`${this.url}${urlAddon}/${path}`, { params });
         res(result);
       } catch (e) {
-        rej(e);
+        rej(e.response);
       }
     });
   }
