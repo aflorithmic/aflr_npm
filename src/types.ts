@@ -1,6 +1,11 @@
-export interface IConfig {
+export interface IInputConfig {
   apiKey: string;
+  debug?: boolean;
   [key: string]: any;
+}
+
+export interface IConfig extends IInputConfig {
+  baseUrl: string;
 }
 
 export enum ErrorTypes {

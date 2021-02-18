@@ -1,5 +1,6 @@
+import { API_BASE_URL, API_BASE_URL_STAGING } from "./constants";
 import { isValidApiKeyError } from "./Errors";
-import { IConfig } from "./types";
+import { IConfig, IInputConfig } from "./types";
 
 interface IComponent {
   configure(config: IConfig): void;
@@ -18,12 +19,14 @@ class AflrClass {
    * before any of the calls
    * @param config
    */
-  public configure(config: IConfig) {
+  public configure(config: IInputConfig) {
     if (!config || !config.apiKey) {
       return isValidApiKeyError();
     }
 
-    this.config = config;
+    const baseUrl = config.debug ? API_BASE_URL_STAGING : API_BASE_URL;
+
+    this.config = { ...config, baseUrl };
     this.components.map(comp => {
       comp.configure(this.config);
     });

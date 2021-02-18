@@ -1,17 +1,14 @@
 import { Aflr } from "./Aflr";
-import { API_BASE_URL } from "./constants";
 import { isInitializedError } from "./Errors";
 import { AxiosPromise, RequestBase } from "./RequestBase";
 import { IConfig, ISpeechBody } from "./types";
 
-const url: string = `${API_BASE_URL}/speech`;
-
 export class SpeechClass {
-  private config!: IConfig;
   private initialized: boolean = false;
   private RequestClass!: RequestBase;
 
-  public configure(config: IConfig = this.config): void {
+  public configure(config: IConfig): void {
+    const url: string = `${config.baseUrl}/speech`;
     this.initialized = true;
     this.RequestClass = new RequestBase(config.apiKey, url);
   }
