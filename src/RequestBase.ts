@@ -11,7 +11,14 @@ export class RequestBase {
   }
 
   public postRequest(data: any): Promise<AxiosPromise> {
-    return this.axios.post(this.url, data);
+    return new Promise(async (res, rej) => {
+      try {
+        const { data: result } = await this.axios.post(this.url, data);
+        res(result);
+      } catch (e) {
+        rej(e);
+      }
+    });
   }
 
   public getRequest(
@@ -20,6 +27,13 @@ export class RequestBase {
     params: any = {}
   ): Promise<AxiosPromise> {
     const urlAddon: string = usePluralUrl ? "s" : "";
-    return this.axios.get(`${this.url}${urlAddon}/${path}`, { params });
+    return new Promise(async (res, rej) => {
+      try {
+        const { data: result } = await this.axios.get(`${this.url}${urlAddon}/${path}`, { params });
+        res(result);
+      } catch (e) {
+        rej(e);
+      }
+    });
   }
 }
