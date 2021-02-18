@@ -1,10 +1,8 @@
-import Aflr from "../index";
-import { Script } from "../Script";
+import Aflr, { Script } from "../index";
 
-test("First test", () => {
+test("It should have some properties", () => {
   Aflr.configure({ apiKey: "some-api-key" });
-  const obj = Script;
-  expect(obj).toHaveProperty("list");
-  expect(obj).toHaveProperty("create");
-  expect(obj).toHaveProperty("retrieve");
+  expect(Script).toHaveProperty("list");
+  expect(Script).toHaveProperty("create");
+  expect(Script).toHaveProperty("retrieve");
 });
