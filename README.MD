@@ -10,6 +10,10 @@ will be added
 
 ### How to push a new version
 
-`npm publish <version_type>`
+`npm version <version_type>`
 
 version_type can be: `major`, `minor` or `patch`
+
+then
+
+`npm publish`
