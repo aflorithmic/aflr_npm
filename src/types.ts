@@ -15,3 +15,7 @@ export interface IScriptBody {
   scriptName?: string;
   scriptId?: string;
 }
+
+export interface ISpeechBody {
+  scriptId: string;
+}
