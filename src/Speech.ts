@@ -1,6 +1,6 @@
 import { Aflr } from "./Aflr";
 import { isInitializedError } from "./Errors";
-import { AxiosPromise, RequestBase } from "./RequestBase";
+import { RequestBase } from "./RequestBase";
 import { IConfig, ISpeechBody } from "./types";
 
 export class SpeechClass {
@@ -17,7 +17,7 @@ export class SpeechClass {
    * Get speech url by script id
    * @param scriptId
    */
-  public retrieve(scriptId: string): Promise<AxiosPromise> {
+  public retrieve(scriptId: string) {
     if (!this.initialized) {
       return isInitializedError();
     }
@@ -28,7 +28,7 @@ export class SpeechClass {
    * Create a new speech
    * @param data
    */
-  public create(data: ISpeechBody): Promise<AxiosPromise> {
+  public create(data: ISpeechBody) {
     if (!this.initialized) {
       return isInitializedError();
     }

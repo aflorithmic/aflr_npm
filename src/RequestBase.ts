@@ -1,6 +1,5 @@
-import axios, { AxiosInstance, AxiosPromise } from "axios";
+import axios, { AxiosInstance } from "axios";
 
-export { AxiosPromise };
 export class RequestBase {
   private axios: AxiosInstance;
   private url: string;
@@ -10,7 +9,7 @@ export class RequestBase {
     this.url = url;
   }
 
-  public postRequest(data: any): Promise<AxiosPromise> {
+  public postRequest(data: any) {
     return new Promise(async (res, rej) => {
       try {
         const { data: result } = await this.axios.post(this.url, data);
@@ -21,15 +20,13 @@ export class RequestBase {
     });
   }
 
-  public getRequest(
-    usePluralUrl: boolean = false,
-    path: string = "",
-    params: any = {}
-  ): Promise<AxiosPromise> {
+  public getRequest(usePluralUrl: boolean = false, path: string = "", params: any = {}) {
     const urlAddon: string = usePluralUrl ? "s" : "";
     return new Promise(async (res, rej) => {
       try {
-        const { data: result } = await this.axios.get(`${this.url}${urlAddon}/${path}`, { params });
+        const { data: result } = await this.axios.get(`${this.url}${urlAddon}/${path}`, {
+          params
+        });
         res(result);
       } catch (e) {
         rej(e.response);

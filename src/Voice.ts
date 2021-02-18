@@ -1,6 +1,6 @@
 import { Aflr } from "./Aflr";
 import { isInitializedError } from "./Errors";
-import { AxiosPromise, RequestBase } from "./RequestBase";
+import { RequestBase } from "./RequestBase";
 import { IConfig } from "./types";
 
 export class VoiceClass {
@@ -16,7 +16,7 @@ export class VoiceClass {
   /**
    * List all voices
    */
-  public list(): Promise<AxiosPromise> {
+  public list() {
     if (!this.initialized) {
       return isInitializedError();
     }

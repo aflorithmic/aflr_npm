@@ -1,6 +1,6 @@
 import { Aflr } from "./Aflr";
 import { isInitializedError } from "./Errors";
-import { AxiosPromise, RequestBase } from "./RequestBase";
+import { RequestBase } from "./RequestBase";
 import { IConfig, IScriptBody } from "./types";
 
 export class ScriptClass {
@@ -16,7 +16,7 @@ export class ScriptClass {
   /**
    * List all scripts
    */
-  public list(): Promise<AxiosPromise> {
+  public list() {
     if (!this.initialized) {
       return isInitializedError();
     }
@@ -27,7 +27,7 @@ export class ScriptClass {
    * Get script by id
    * @param scriptId
    */
-  public retrieve(scriptId: string): Promise<AxiosPromise> {
+  public retrieve(scriptId: string) {
     if (!this.initialized) {
       return isInitializedError();
     }
@@ -38,7 +38,7 @@ export class ScriptClass {
    * Create a new script
    * @param data
    */
-  public create(data: IScriptBody): Promise<AxiosPromise> {
+  public create(data: IScriptBody) {
     if (!this.initialized) {
       return isInitializedError();
     }
