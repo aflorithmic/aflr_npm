@@ -1,6 +1,11 @@
 import { Aflr } from "./Aflr";
-export default Aflr;
+import { Script } from "./Script";
+import { Speech } from "./Speech";
+import { Voice } from "./Voice";
 
-export { Script } from "./Script";
-export { Speech } from "./Speech";
-export { Voice } from "./Voice";
+Aflr.Script = Script;
+Aflr.Speech = Speech;
+Aflr.Voice = Voice;
+
+export default Aflr;
+export { Script, Speech, Voice };

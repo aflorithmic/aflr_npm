@@ -7,6 +7,9 @@ interface IComponent {
 }
 
 class AflrClass {
+  public Script: any;
+  public Speech: any;
+  public Voice: any;
   private config!: IConfig;
   private components: IComponent[] = [];
 
