@@ -13,6 +13,11 @@ class AflrClass {
     this.components.push(comp);
   }
 
+  /**
+   * Configure the SDK before using it. Make sure you call this function
+   * before any of the calls
+   * @param config
+   */
   public configure(config: IConfig) {
     if (!config || !config.apiKey) {
       return isValidApiKeyError();

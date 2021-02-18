@@ -16,6 +16,9 @@ export class ScriptClass {
     this.RequestClass = new RequestBase(config.apiKey, url);
   }
 
+  /**
+   * List all scripts
+   */
   public list(): Promise<AxiosPromise> {
     if (!this.initialized) {
       return isInitializedError();
@@ -23,6 +26,10 @@ export class ScriptClass {
     return this.RequestClass.getRequest(true);
   }
 
+  /**
+   * Get script by id
+   * @param scriptId
+   */
   public retrieve(scriptId: string): Promise<AxiosPromise> {
     if (!this.initialized) {
       return isInitializedError();
@@ -30,6 +37,10 @@ export class ScriptClass {
     return this.RequestClass.getRequest(false, scriptId);
   }
 
+  /**
+   * Create a new script
+   * @param data
+   */
   public create(data: IScriptBody): Promise<AxiosPromise> {
     if (!this.initialized) {
       return isInitializedError();
