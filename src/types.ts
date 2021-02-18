@@ -9,8 +9,8 @@ export interface IConfig extends IInputConfig {
 }
 
 export enum ErrorTypes {
-  validApiKey = "API key must be a valid string.",
-  notInitialized = "You should configure the package before using it."
+  validApiKey = "API key must be a valid string. - AFLR",
+  notInitialized = "You should configure the package before using it. - AFLR"
 }
 
 export interface IScriptBody {
