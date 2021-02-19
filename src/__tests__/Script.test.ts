@@ -1,4 +1,3 @@
-import { exception } from "console";
 import Aflr, { Script } from "../index";
 require("dotenv").config();
 
