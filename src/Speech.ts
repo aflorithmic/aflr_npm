@@ -24,7 +24,7 @@ export class SpeechClass {
     if (!this.initialized) {
       return isInitializedError();
     }
-    return this.RequestClass.getRequest(false, scriptId);
+    return this.RequestClass.getRequest(scriptId);
   }
 
   /**

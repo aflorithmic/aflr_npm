@@ -20,11 +20,10 @@ export class RequestBase {
     });
   }
 
-  public getRequest(usePluralUrl: boolean = false, path: string = "", params: any = {}) {
-    const urlAddon: string = usePluralUrl ? "s" : "";
+  public getRequest(path: string = "", params: any = {}) {
     return new Promise(async (res, rej) => {
       try {
-        const { data: result } = await this.axios.get(`${this.url}${urlAddon}/${path}`, {
+        const { data: result } = await this.axios.get(`${this.url}/${path}`, {
           params
         });
         res(result);
