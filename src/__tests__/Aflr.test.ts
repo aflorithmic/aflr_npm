@@ -12,7 +12,7 @@ describe("Main module initialization", () => {
       // @ts-ignore
       await Aflr.configure();
     } catch (e) {
-      expect(e).toMatch(/must be a valid string/);
+      expect(e.message).toMatch(/must be a valid string/);
     }
   });
 
@@ -21,7 +21,7 @@ describe("Main module initialization", () => {
       await Aflr.configure({ apiKey, debug: true });
       await Aflr.configure({ apiKey, debug: true });
     } catch (e) {
-      expect(e).toMatch(/has already been initialized/);
+      expect(e.message).toMatch(/has already been initialized/);
     }
   });
 
@@ -47,7 +47,7 @@ describe("Main module initialization", () => {
       // @ts-ignore
       expect(Aflr.Script.RequestClass.url).toMatch(API_BASE_URL);
     } catch (e) {
-      expect(e).toMatch(/has already been initialized/);
+      expect(e.message).toMatch(/has already been initialized/);
     }
   });
 });

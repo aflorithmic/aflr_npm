@@ -12,7 +12,7 @@ describe("Speech module initialization", () => {
     try {
       await Speech.retrieve("some-id");
     } catch (e) {
-      expect(e).toMatch(/configure the package before using it/);
+      expect(e.message).toMatch(/configure the package before using it/);
     }
   });
 
@@ -21,7 +21,7 @@ describe("Speech module initialization", () => {
       Aflr.configure({ apiKey: "some-api-key" });
       await Speech.configure({ apiKey: "1", baseUrl: "1" });
     } catch (e) {
-      expect(e).toMatch(/has already been initialized/);
+      expect(e.message).toMatch(/has already been initialized/);
     }
   });
 
