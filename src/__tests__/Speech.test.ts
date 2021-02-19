@@ -61,7 +61,6 @@ describe("Speech operations", () => {
 
   test("It should retrieve the created speech", async () => {
     try {
-      jest.setTimeout(30000);
       let result = await Speech.retrieve(createdScriptId);
       expect(result["default"]).toBeDefined(); // sectionName is default by default
 
@@ -72,5 +71,5 @@ describe("Speech operations", () => {
     } catch (e) {
       throw new Error("test failed");
     }
-  });
+  }, 30000);
 });
