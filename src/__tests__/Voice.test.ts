@@ -1,6 +1,8 @@
 import Aflr, { Voice } from "../index";
 require("dotenv").config();
 
+const apiKey = process.env.API_KEY || "";
+
 describe("Voice module initialization", () => {
   beforeEach(() => {
     Aflr.reset();
@@ -32,13 +34,13 @@ describe("Voice module initialization", () => {
 describe("Speech operations", () => {
   beforeEach(() => {
     Aflr.reset();
-    Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+    Aflr.configure({ apiKey, debug: true });
   });
 
   test("It should list all of the scripts and find the created one", async () => {
     try {
-      const voices = await Voice.list();
-      expect(Array.isArray(voices["voices"])).toBe(true);
+      const voices: any = await Voice.list();
+      expect(Array.isArray(voices.voices)).toBe(true);
     } catch (e) {
       throw new Error("test failed");
     }

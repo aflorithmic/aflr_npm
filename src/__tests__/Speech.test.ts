@@ -1,6 +1,8 @@
 import Aflr, { Script, Speech } from "../index";
 require("dotenv").config();
 
+const apiKey = process.env.API_KEY || "";
+
 describe("Speech module initialization", () => {
   beforeEach(() => {
     Aflr.reset();
@@ -33,7 +35,7 @@ describe("Speech module initialization", () => {
 describe("Speech operations", () => {
   beforeEach(() => {
     Aflr.reset();
-    Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+    Aflr.configure({ apiKey, debug: true });
   });
   const testScriptText = "Hey testing!";
   const testValues = "test";
@@ -50,10 +52,10 @@ describe("Speech operations", () => {
       });
       createdScriptId = scriptId;
 
-      const result = await Speech.create({ scriptId: createdScriptId });
+      const result: any = await Speech.create({ scriptId: createdScriptId });
 
-      expect(result["message"]).toBeDefined();
-      expect(result["message"]).toMatch(/success/i);
+      expect(result.message).toBeDefined();
+      expect(result.message).toMatch(/success/i);
     } catch (e) {
       throw new Error("test failed");
     }
@@ -61,10 +63,10 @@ describe("Speech operations", () => {
 
   test("It should retrieve the created speech", async () => {
     try {
-      let result = await Speech.retrieve(createdScriptId);
-      expect(result["default"]).toBeDefined(); // sectionName is default by default
+      const rawResult: any = await Speech.retrieve(createdScriptId);
+      expect(rawResult.default).toBeDefined(); // sectionName is default by default
 
-      result = result["default"];
+      const result: Array<any> = rawResult.default;
 
       expect(result[0].startsWith("https://")).toBe(true);
       expect(result[0]).toMatch(`${testValues}__${testValues}__${testValues}`);

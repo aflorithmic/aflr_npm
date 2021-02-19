@@ -2,7 +2,7 @@ import { API_BASE_URL, API_BASE_URL_STAGING } from "../constants";
 import Aflr from "../index";
 require("dotenv").config();
 
-const apiKey: string = process.env.API_KEY;
+const apiKey = process.env.API_KEY || "";
 
 describe("Main module initialization", () => {
   beforeAll(() => Aflr.reset());

@@ -1,6 +1,8 @@
 import Aflr, { Script } from "../index";
 require("dotenv").config();
 
+const apiKey = process.env.API_KEY || "";
+
 describe("Script module initialization", () => {
   beforeEach(() => {
     Aflr.reset();
@@ -34,7 +36,7 @@ describe("Script module initialization", () => {
 describe("Script operations", () => {
   beforeEach(() => {
     Aflr.reset();
-    Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+    Aflr.configure({ apiKey, debug: true });
   });
   const testScriptText = "Hey testing!";
   const testValues = "test";
