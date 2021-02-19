@@ -47,6 +47,12 @@ export class ScriptClass {
     }
     return this.RequestClass.postRequest(data);
   }
+
+  public reset() {
+    this.initialized = false;
+    // @ts-ignore
+    this.RequestClass = undefined;
+  }
 }
 
 export const Script = new ScriptClass();

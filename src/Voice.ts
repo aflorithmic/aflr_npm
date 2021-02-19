@@ -25,6 +25,12 @@ export class VoiceClass {
     }
     return this.RequestClass.getRequest(true);
   }
+
+  public reset() {
+    this.initialized = false;
+    // @ts-ignore
+    this.RequestClass = undefined;
+  }
 }
 
 export const Voice = new VoiceClass();

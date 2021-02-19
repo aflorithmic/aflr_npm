@@ -7,6 +7,7 @@ import { VoiceClass } from "./Voice";
 
 interface IComponent {
   configure(config: IConfig): void | Promise<never>;
+  reset(): void;
 }
 
 class AflrClass {
@@ -33,11 +34,18 @@ class AflrClass {
     const baseUrl = config.debug ? API_BASE_URL_STAGING : API_BASE_URL;
 
     this.config = { ...config, baseUrl };
-    this.components.map(comp => {
-      comp.configure(this.config);
-    });
+    this.components.map(comp => comp.configure(this.config));
 
     return this.config;
+  }
+
+  /**
+   * Reset the initialization
+   */
+  public reset() {
+    // @ts-ignore
+    this.config = {};
+    this.components.map(comp => comp.reset());
   }
 }
 

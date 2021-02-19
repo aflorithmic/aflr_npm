@@ -37,6 +37,12 @@ export class SpeechClass {
     }
     return this.RequestClass.postRequest({ ...data, api: false });
   }
+
+  public reset() {
+    this.initialized = false;
+    // @ts-ignore
+    this.RequestClass = undefined;
+  }
 }
 
 export const Speech = new SpeechClass();
