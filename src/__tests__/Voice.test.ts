@@ -19,7 +19,7 @@ describe("Voice module initialization", () => {
   test("It should not allow submodule configuration", async () => {
     try {
       Aflr.configure({ apiKey: "some-api-key" });
-      await Voice.configure({ apiKey: "1", baseUrl: "1" });
+      Voice.configure({ apiKey: "1", baseUrl: "1" });
     } catch (e) {
       expect(e.message).toMatch(/has already been initialized/);
     }

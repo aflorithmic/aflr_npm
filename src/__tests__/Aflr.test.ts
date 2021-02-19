@@ -10,7 +10,7 @@ describe("Main module initialization", () => {
   test("It should require apiKey in configuration", async () => {
     try {
       // @ts-ignore
-      await Aflr.configure();
+      Aflr.configure();
     } catch (e) {
       expect(e.message).toMatch(/must be a valid string/);
     }
@@ -18,8 +18,8 @@ describe("Main module initialization", () => {
 
   test("It should throw an error if configured twice", async () => {
     try {
-      await Aflr.configure({ apiKey, debug: true });
-      await Aflr.configure({ apiKey, debug: true });
+      Aflr.configure({ apiKey, debug: true });
+      Aflr.configure({ apiKey, debug: true });
     } catch (e) {
       expect(e.message).toMatch(/has already been initialized/);
     }

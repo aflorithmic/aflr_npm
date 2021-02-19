@@ -19,7 +19,7 @@ describe("Speech module initialization", () => {
   test("It should not allow submodule configuration", async () => {
     try {
       Aflr.configure({ apiKey: "some-api-key" });
-      await Speech.configure({ apiKey: "1", baseUrl: "1" });
+      Speech.configure({ apiKey: "1", baseUrl: "1" });
     } catch (e) {
       expect(e.message).toMatch(/has already been initialized/);
     }
@@ -64,7 +64,7 @@ describe("Speech operations", () => {
   test("It should retrieve the created speech", async () => {
     try {
       const rawResult: any = await Speech.retrieve(createdScriptId);
-      expect(rawResult.default).toBeDefined(); // sectionName is default by default
+      expect(rawResult.default).toBeDefined();
 
       const result: Array<any> = rawResult.default;
 
