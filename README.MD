@@ -41,3 +41,7 @@ version_type can be: `major`, `minor` or `patch`
 then
 
 `npm publish`
+
+### Running tests
+
+To be able to run the tests, create a `.env` file and put a valid staging `API_KEY` parameter in it.
