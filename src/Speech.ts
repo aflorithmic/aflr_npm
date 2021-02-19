@@ -1,5 +1,8 @@
 import { Aflr } from "./Aflr";
-import { isAlreadyInitializedError, isInitializedError } from "./Errors";
+import {
+  isInitializedError,
+  isSubmoduleAlreadyInitializedError
+} from "./Errors";
 import { RequestBase } from "./RequestBase";
 import { IConfig, ISpeechBody } from "./types";
 
@@ -9,7 +12,7 @@ export class SpeechClass {
 
   public configure(config: IConfig): void | Promise<never> {
     if (this.initialized) {
-      return isAlreadyInitializedError();
+      return isSubmoduleAlreadyInitializedError();
     }
     const url: string = `${config.baseUrl}/speech`;
     this.initialized = true;

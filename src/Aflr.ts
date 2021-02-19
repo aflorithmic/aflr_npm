@@ -1,5 +1,5 @@
 import { API_BASE_URL, API_BASE_URL_STAGING } from "./constants";
-import { isValidApiKeyError } from "./Errors";
+import { isModuleAlreadyInitializedError, isValidApiKeyError } from "./Errors";
 import { ScriptClass } from "./Script";
 import { SpeechClass } from "./Speech";
 import { IConfig, IInputConfig } from "./types";
@@ -16,6 +16,7 @@ class AflrClass {
   public Voice!: VoiceClass;
   private config!: IConfig;
   private components: IComponent[] = [];
+  private initialized: boolean = false;
 
   public register(comp: IComponent) {
     this.components.push(comp);
@@ -29,11 +30,14 @@ class AflrClass {
   public configure(config: IInputConfig) {
     if (!config || !config.apiKey) {
       return isValidApiKeyError();
+    } else if (this.initialized) {
+      return isModuleAlreadyInitializedError();
     }
 
     const baseUrl = config.debug ? API_BASE_URL_STAGING : API_BASE_URL;
 
     this.config = { ...config, baseUrl };
+    this.initialized = true;
     this.components.map(comp => comp.configure(this.config));
 
     return this.config;

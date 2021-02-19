@@ -1,5 +1,5 @@
 import { Aflr } from "./Aflr";
-import { isAlreadyInitializedError, isInitializedError } from "./Errors";
+import { isInitializedError, isSubmoduleAlreadyInitializedError } from "./Errors";
 import { RequestBase } from "./RequestBase";
 import { IConfig, IScriptBody } from "./types";
 
@@ -9,7 +9,7 @@ export class ScriptClass {
 
   public configure(config: IConfig): void | Promise<never> {
     if (this.initialized) {
-      return isAlreadyInitializedError();
+      return isSubmoduleAlreadyInitializedError();
     }
     const url: string = `${config.baseUrl}/script`;
     this.initialized = true;
