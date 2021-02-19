@@ -19,7 +19,7 @@ export class ScriptClass {
   /**
    * List all scripts
    */
-  public list() {
+  public list(): Promise<never> | Promise<unknown> {
     if (!this.initialized) {
       return isInitializedError();
     }
@@ -30,7 +30,7 @@ export class ScriptClass {
    * Get script by id
    * @param scriptId
    */
-  public retrieve(scriptId: string) {
+  public retrieve(scriptId: string): Promise<never> | Promise<unknown> {
     if (!this.initialized) {
       return isInitializedError();
     }
@@ -38,17 +38,17 @@ export class ScriptClass {
   }
 
   /**
-   * Create a new script
+   * Create a new scrip: Promise<never> | Promise<unknown>
    * @param data
    */
-  public create(data: IScriptBody) {
+  public create(data: IScriptBody): Promise<never> | Promise<unknown> {
     if (!this.initialized) {
       return isInitializedError();
     }
     return this.RequestClass.postRequest(data);
   }
 
-  public reset() {
+  public reset(): void {
     this.initialized = false;
     // @ts-ignore
     this.RequestClass = undefined;

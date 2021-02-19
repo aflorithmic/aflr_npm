@@ -9,7 +9,7 @@ export class RequestBase {
     this.url = url;
   }
 
-  public postRequest(data: any): any {
+  public postRequest(data: unknown): any {
     return new Promise((res, rej) => {
       this.axios
         .post(this.url, data)
@@ -18,7 +18,7 @@ export class RequestBase {
     });
   }
 
-  public getRequest(path = "", params: any = {}): any {
+  public getRequest(path = "", params: unknown = {}): any {
     return new Promise((res, rej) => {
       this.axios
         .get(`${this.url}/${path}`, {
