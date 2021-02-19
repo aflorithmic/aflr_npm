@@ -1,25 +1,25 @@
-import Aflr, { Script, Speech, Voice } from "aflr";
+const Aflr = require("./lib").default;
 
 async function example() {
-  Aflr.configure({ apiKey: "your-api-key", debug: true });
   try {
-    let script = await Script.create({ scriptText: "<<sectionName::hello>> Hello world" });
+    Aflr.configure({ apiKey: "uMbXt3xck92QFSzAD7BVV4DymjD75HLC4rogqrSB", debug: true });
+    let script = await Aflr.Script.create({ scriptText: "Hello world" });
     console.log(script);
 
-    script = await Script.retrieve(script["scriptId"]);
+    script = await Aflr.Script.retrieve(script["scriptId"]);
     console.log(script);
 
-    let scripts = await Script.list();
+    let scripts = await Aflr.Script.list();
     console.log(scripts);
 
-    let speech = await Speech.create({ scriptId: script["scriptId"] });
+    let voices = await Aflr.Voice.list();
+    console.log(voices);
+
+    let speech = await Aflr.Speech.create({ scriptId: script["scriptId"] });
     console.log(speech);
 
-    let speechResult = await Speech.retrieve(script["scriptId"]);
+    let speechResult = await Aflr.Speech.retrieve(script["scriptId"]);
     console.log(speechResult);
-
-    let voices = await Voice.list();
-    console.log(voices);
   } catch (e) {
     console.error(e);
   }
