@@ -51,6 +51,7 @@ class AflrClass {
     this.config = {};
     this.components.map(comp => comp.reset());
     this.components = [];
+    this.initialized = false;
   }
 }
 
