@@ -7,9 +7,9 @@ export class SpeechClass {
   #initialized = false;
   #RequestClass!: RequestBase;
 
-  public configure(config: IConfig): void | Promise<never> {
+  public configure(config: IConfig): void {
     if (this.#initialized) {
-      return isSubmoduleAlreadyInitializedError();
+      isSubmoduleAlreadyInitializedError();
     }
     const url = `${config.baseUrl}/speech`;
     this.#initialized = true;
@@ -20,9 +20,9 @@ export class SpeechClass {
    * Get speech url by script id
    * @param scriptId
    */
-  public retrieve(scriptId: string): Promise<never> | Promise<unknown> {
+  public retrieve(scriptId: string): Promise<unknown> {
     if (!this.#initialized) {
-      return isInitializedError();
+      isInitializedError();
     }
     return this.#RequestClass.getRequest(scriptId);
   }
@@ -31,9 +31,9 @@ export class SpeechClass {
    * Create a new speech
    * @param data
    */
-  public create(data: ISpeechBody): Promise<never> | Promise<unknown> {
+  public create(data: ISpeechBody): Promise<unknown> {
     if (!this.#initialized) {
-      return isInitializedError();
+      isInitializedError();
     }
     return this.#RequestClass.postRequest({ ...data, api: false });
   }

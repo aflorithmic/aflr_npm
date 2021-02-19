@@ -7,9 +7,9 @@ export class ScriptClass {
   #initialized = false;
   #RequestClass!: RequestBase;
 
-  public configure(config: IConfig): void | Promise<never> {
+  public configure(config: IConfig): void {
     if (this.#initialized) {
-      return isSubmoduleAlreadyInitializedError();
+      isSubmoduleAlreadyInitializedError();
     }
     const url = `${config.baseUrl}/script`;
     this.#initialized = true;
@@ -19,9 +19,9 @@ export class ScriptClass {
   /**
    * List all scripts
    */
-  public list(): Promise<never> | Promise<unknown> {
+  public list(): Promise<unknown> {
     if (!this.#initialized) {
-      return isInitializedError();
+      isInitializedError();
     }
     return this.#RequestClass.getRequest();
   }
@@ -30,20 +30,20 @@ export class ScriptClass {
    * Get script by id
    * @param scriptId
    */
-  public retrieve(scriptId: string): Promise<never> | Promise<unknown> {
+  public retrieve(scriptId: string): Promise<unknown> {
     if (!this.#initialized) {
-      return isInitializedError();
+      isInitializedError();
     }
     return this.#RequestClass.getRequest(scriptId);
   }
 
   /**
-   * Create a new scrip: Promise<never> | Promise<unknown>
+   * Create a new script
    * @param data
    */
-  public create(data: IScriptBody): Promise<never> | Promise<unknown> {
+  public create(data: IScriptBody): Promise<unknown> {
     if (!this.#initialized) {
-      return isInitializedError();
+      isInitializedError();
     }
     return this.#RequestClass.postRequest(data);
   }

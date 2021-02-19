@@ -7,9 +7,9 @@ export class VoiceClass {
   #initialized = false;
   #RequestClass!: RequestBase;
 
-  public configure(config: IConfig): void | Promise<never> {
+  public configure(config: IConfig): void {
     if (this.#initialized) {
-      return isSubmoduleAlreadyInitializedError();
+      isSubmoduleAlreadyInitializedError();
     }
     const url = `${config.baseUrl}/voice`;
     this.#initialized = true;
@@ -19,9 +19,9 @@ export class VoiceClass {
   /**
    * List all voices
    */
-  public list(): Promise<never> | Promise<unknown> {
+  public list(): Promise<unknown> {
     if (!this.#initialized) {
-      return isInitializedError();
+      isInitializedError();
     }
     return this.#RequestClass.getRequest();
   }

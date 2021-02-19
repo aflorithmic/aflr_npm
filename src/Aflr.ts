@@ -27,11 +27,11 @@ class AflrClass {
    * before any of the calls
    * @param config
    */
-  public configure(config: IInputConfig) {
+  public configure(config: IInputConfig): void {
     if (!config || !config.apiKey) {
-      return isValidApiKeyError();
+      isValidApiKeyError();
     } else if (this.#initialized) {
-      return isModuleAlreadyInitializedError();
+      isModuleAlreadyInitializedError();
     }
 
     const baseUrl = config.debug ? API_BASE_URL_STAGING : API_BASE_URL;
@@ -39,8 +39,6 @@ class AflrClass {
     this.#config = { ...config, baseUrl };
     this.#initialized = true;
     this.#components.map(comp => comp.configure(this.#config));
-
-    return this.#config;
   }
 
   /**
