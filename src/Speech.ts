@@ -1,8 +1,5 @@
 import { Aflr } from "./Aflr";
-import {
-  isInitializedError,
-  isSubmoduleAlreadyInitializedError
-} from "./Errors";
+import { isInitializedError, isSubmoduleAlreadyInitializedError } from "./Errors";
 import { RequestBase } from "./RequestBase";
 import { IConfig, ISpeechBody } from "./types";
 
