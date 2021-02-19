@@ -1,5 +1,5 @@
 import { Aflr } from "./Aflr";
-import { isInitializedError } from "./Errors";
+import { isAlreadyInitializedError, isInitializedError } from "./Errors";
 import { RequestBase } from "./RequestBase";
 import { IConfig, ISpeechBody } from "./types";
 
@@ -7,7 +7,10 @@ export class SpeechClass {
   private initialized: boolean = false;
   private RequestClass!: RequestBase;
 
-  public configure(config: IConfig): void {
+  public configure(config: IConfig): void | Promise<never> {
+    if (this.initialized) {
+      return isAlreadyInitializedError();
+    }
     const url: string = `${config.baseUrl}/speech`;
     this.initialized = true;
     this.RequestClass = new RequestBase(config.apiKey, url);

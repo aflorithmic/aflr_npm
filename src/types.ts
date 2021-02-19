@@ -10,7 +10,8 @@ export interface IConfig extends IInputConfig {
 
 export enum ErrorTypes {
   validApiKey = "API key must be a valid string. - AFLR",
-  notInitialized = "You should configure the package before using it. - AFLR"
+  notInitialized = "You should configure the package before using it. - AFLR",
+  alreadyInitialized = "This submobule has already been initialized and configured, do not try to configure it directly. - AFLR"
 }
 
 export interface IScriptBody {
