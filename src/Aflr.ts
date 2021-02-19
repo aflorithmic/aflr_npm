@@ -1,15 +1,18 @@
 import { API_BASE_URL, API_BASE_URL_STAGING } from "./constants";
 import { isValidApiKeyError } from "./Errors";
+import { ScriptClass } from "./Script";
+import { SpeechClass } from "./Speech";
 import { IConfig, IInputConfig } from "./types";
+import { VoiceClass } from "./Voice";
 
 interface IComponent {
   configure(config: IConfig): void;
 }
 
 class AflrClass {
-  public Script: any;
-  public Speech: any;
-  public Voice: any;
+  public Script!: ScriptClass;
+  public Speech!: SpeechClass;
+  public Voice!: VoiceClass;
   private config!: IConfig;
   private components: IComponent[] = [];
 
