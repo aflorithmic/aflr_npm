@@ -28,6 +28,8 @@ Aflr.configure();
 Script.list();
 ```
 
+### **A detailed documentation can be found on [docs.api.audio](https://docs.api.audio)**
+
 ## Development notes
 
 ### How to push a new version
