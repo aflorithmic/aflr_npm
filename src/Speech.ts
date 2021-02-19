@@ -4,14 +4,14 @@ import { RequestBase } from "./RequestBase";
 import { IConfig, ISpeechBody } from "./types";
 
 export class SpeechClass {
-  private initialized: boolean = false;
+  private initialized = false;
   private RequestClass!: RequestBase;
 
   public configure(config: IConfig): void | Promise<never> {
     if (this.initialized) {
       return isSubmoduleAlreadyInitializedError();
     }
-    const url: string = `${config.baseUrl}/speech`;
+    const url = `${config.baseUrl}/speech`;
     this.initialized = true;
     this.RequestClass = new RequestBase(config.apiKey, url);
   }
@@ -20,7 +20,7 @@ export class SpeechClass {
    * Get speech url by script id
    * @param scriptId
    */
-  public retrieve(scriptId: string) {
+  public retrieve(scriptId: string): Promise<never> | Promise<unknown> {
     if (!this.initialized) {
       return isInitializedError();
     }
@@ -31,14 +31,14 @@ export class SpeechClass {
    * Create a new speech
    * @param data
    */
-  public create(data: ISpeechBody) {
+  public create(data: ISpeechBody): Promise<never> | Promise<unknown> {
     if (!this.initialized) {
       return isInitializedError();
     }
     return this.RequestClass.postRequest({ ...data, api: false });
   }
 
-  public reset() {
+  public reset(): void {
     this.initialized = false;
     // @ts-ignore
     this.RequestClass = undefined;

@@ -4,14 +4,14 @@ import { RequestBase } from "./RequestBase";
 import { IConfig, IScriptBody } from "./types";
 
 export class ScriptClass {
-  private initialized: boolean = false;
+  private initialized = false;
   private RequestClass!: RequestBase;
 
   public configure(config: IConfig): void | Promise<never> {
     if (this.initialized) {
       return isSubmoduleAlreadyInitializedError();
     }
-    const url: string = `${config.baseUrl}/script`;
+    const url = `${config.baseUrl}/script`;
     this.initialized = true;
     this.RequestClass = new RequestBase(config.apiKey, url);
   }

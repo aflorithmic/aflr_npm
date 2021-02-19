@@ -2,6 +2,8 @@ import { API_BASE_URL, API_BASE_URL_STAGING } from "../constants";
 import Aflr from "../index";
 require("dotenv").config();
 
+const apiKey: string = process.env.API_KEY;
+
 describe("Main module initialization", () => {
   beforeAll(() => Aflr.reset());
 
@@ -16,8 +18,8 @@ describe("Main module initialization", () => {
 
   test("It should throw an error if configured twice", async () => {
     try {
-      await Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
-      await Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+      await Aflr.configure({ apiKey, debug: true });
+      await Aflr.configure({ apiKey, debug: true });
     } catch (e) {
       expect(e).toMatch(/has already been initialized/);
     }
@@ -25,21 +27,23 @@ describe("Main module initialization", () => {
 
   test("It should not throw an error if configured twice after resetting", async () => {
     try {
-      Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+      Aflr.configure({ apiKey, debug: true });
       Aflr.reset();
-      expect(Aflr.configure({ apiKey: process.env.API_KEY, debug: true })).not.toThrowError();
-    } catch (e) {}
+      expect(Aflr.configure({ apiKey, debug: true })).not.toThrowError();
+    } catch (e) {
+      //
+    }
   });
 
   test("It should have staging and prod urls correctly", async () => {
     try {
-      Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+      Aflr.configure({ apiKey, debug: true });
       // @ts-ignore
       expect(Aflr.Script.RequestClass.url).toMatch(API_BASE_URL_STAGING);
 
       Aflr.reset();
 
-      Aflr.configure({ apiKey: process.env.API_KEY });
+      Aflr.configure({ apiKey });
       // @ts-ignore
       expect(Aflr.Script.RequestClass.url).toMatch(API_BASE_URL);
     } catch (e) {

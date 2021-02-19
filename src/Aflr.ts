@@ -16,7 +16,7 @@ class AflrClass {
   public Voice!: VoiceClass;
   private config!: IConfig;
   private components: IComponent[] = [];
-  private initialized: boolean = false;
+  private initialized = false;
 
   public register(comp: IComponent) {
     this.components.push(comp);

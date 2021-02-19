@@ -9,27 +9,23 @@ export class RequestBase {
     this.url = url;
   }
 
-  public postRequest(data: any) {
-    return new Promise(async (res, rej) => {
-      try {
-        const { data: result } = await this.axios.post(this.url, data);
-        res(result);
-      } catch (e) {
-        rej(e.response);
-      }
+  public postRequest(data: any): any {
+    return new Promise((res, rej) => {
+      this.axios
+        .post(this.url, data)
+        .then(({ data: result }) => res(result))
+        .catch(({ response }) => rej(response));
     });
   }
 
-  public getRequest(path: string = "", params: any = {}) {
-    return new Promise(async (res, rej) => {
-      try {
-        const { data: result } = await this.axios.get(`${this.url}/${path}`, {
+  public getRequest(path = "", params: any = {}): any {
+    return new Promise((res, rej) => {
+      this.axios
+        .get(`${this.url}/${path}`, {
           params
-        });
-        res(result);
-      } catch (e) {
-        rej(e.response);
-      }
+        })
+        .then(({ data: result }) => res(result))
+        .catch(({ response }) => rej(response));
     });
   }
 }
