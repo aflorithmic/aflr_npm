@@ -6,7 +6,7 @@ import { IConfig, IInputConfig } from "./types";
 import { VoiceClass } from "./Voice";
 
 interface IComponent {
-  configure(config: IConfig): void;
+  configure(config: IConfig): void | Promise<never>;
 }
 
 class AflrClass {
