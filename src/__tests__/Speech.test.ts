@@ -30,44 +30,47 @@ describe("Speech module initialization", () => {
   });
 });
 
-// describe("Speech operations", () => {
-//   Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
-//   const testScriptText = "Hey testing!";
-//   const testValues = "test";
-//   let createdScriptId: string;
+describe("Speech operations", () => {
+  beforeEach(() => {
+    Aflr.reset();
+    Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+  });
+  const testScriptText = "Hey testing!";
+  const testValues = "test";
+  let createdScriptId: string;
 
-//   test("It should create a speech from a new script", async () => {
-//     try {
-//       // @ts-ignore
-//       const { scriptId } = await Script.create({
-//         scriptText: testScriptText,
-//         scriptName: testValues,
-//         moduleName: testValues,
-//         projectName: testValues
-//       });
-//       createdScriptId = scriptId;
+  test("It should create a speech from a new script", async () => {
+    try {
+      // @ts-ignore
+      const { scriptId } = await Script.create({
+        scriptText: testScriptText,
+        scriptName: testValues,
+        moduleName: testValues,
+        projectName: testValues
+      });
+      createdScriptId = scriptId;
 
-//       const result = await Speech.create({ scriptId: createdScriptId });
+      const result = await Speech.create({ scriptId: createdScriptId });
 
-//       expect(result["message"]).toBeDefined();
-//       expect(result["message"]).toMatch(/success/i);
-//     } catch (e) {
-//       throw new Error("test failed");
-//     }
-//   });
+      expect(result["message"]).toBeDefined();
+      expect(result["message"]).toMatch(/success/i);
+    } catch (e) {
+      throw new Error("test failed");
+    }
+  });
 
-//   test("It should retrieve the created speech", async () => {
-//     try {
-//       jest.setTimeout(30000);
-//       let result = await Speech.retrieve(createdScriptId);
-//       expect(result["default"]).toBeDefined(); // sectionName is default by default
+  test("It should retrieve the created speech", async () => {
+    try {
+      jest.setTimeout(30000);
+      let result = await Speech.retrieve(createdScriptId);
+      expect(result["default"]).toBeDefined(); // sectionName is default by default
 
-//       result = result["default"];
+      result = result["default"];
 
-//       expect(result[0].startsWith("https://")).toBe(true);
-//       expect(result[0]).toMatch(`/${testValues}__${testValues}__${testValues}/`);
-//     } catch (e) {
-//       throw new Error("test failed");
-//     }
-//   });
-// });
+      expect(result[0].startsWith("https://")).toBe(true);
+      expect(result[0]).toMatch(`${testValues}__${testValues}__${testValues}`);
+    } catch (e) {
+      throw new Error("test failed");
+    }
+  });
+});
