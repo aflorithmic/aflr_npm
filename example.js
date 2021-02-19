@@ -2,7 +2,7 @@ const Aflr = require("./lib").default;
 
 async function example() {
   try {
-    Aflr.configure({ apiKey: "uMbXt3xck92QFSzAD7BVV4DymjD75HLC4rogqrSB", debug: true });
+    Aflr.configure({ apiKey: "your-api-key", debug: true });
     let script = await Aflr.Script.create({ scriptText: "Hello world" });
     console.log(script);
 
