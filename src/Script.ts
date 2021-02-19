@@ -23,7 +23,7 @@ export class ScriptClass {
     if (!this.initialized) {
       return isInitializedError();
     }
-    return this.RequestClass.getRequest(true);
+    return this.RequestClass.getRequest(false);
   }
 
   /**
