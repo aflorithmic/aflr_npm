@@ -1,68 +1,11 @@
 import Aflr, { Script } from "../index";
 require("dotenv").config();
 
-describe("Script operations", () => {
-  Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
-  const testScriptText = "Hey testing!";
-  const testValues = "test";
-  let createdScriptId: string;
-
-  test("It should create a new script", async () => {
-    try {
-      // @ts-ignore
-      const { scriptId, scriptText, scriptName, moduleName, projectName } = await Script.create({
-        scriptText: testScriptText,
-        scriptName: testValues,
-        moduleName: testValues,
-        projectName: testValues
-      });
-      createdScriptId = scriptId;
-      expect(scriptText).toMatch(testScriptText); // since section names are added automatically, we dont do exact check
-      expect(scriptName).toBe(testValues);
-      expect(moduleName).toBe(testValues);
-      expect(projectName).toBe(testValues);
-    } catch (e) {
-      throw new Error("test failed");
-    }
-  });
-
-  test("It should retrieve the created script", async () => {
-    try {
-      // @ts-ignore
-      const { scriptText, scriptName, moduleName, projectName } = await Script.retrieve(
-        createdScriptId
-      );
-      expect(scriptText).toMatch(testScriptText); // since section names are added automatically, we dont do exact check
-      expect(scriptName).toBe(testValues);
-      expect(moduleName).toBe(testValues);
-      expect(projectName).toBe(testValues);
-    } catch (e) {
-      throw new Error("test failed");
-    }
-  });
-
-  test("It should list all of the scripts and find the created one", async () => {
-    try {
-      // @ts-ignore
-      const scripts = await Script.list();
-      expect(Array.isArray(scripts)).toBe(true);
-      expect(scripts).toEqual(
-        expect.arrayContaining([
-          expect.objectContaining({
-            scriptText: expect.stringMatching(testScriptText),
-            scriptName: testValues,
-            moduleName: testValues,
-            projectName: testValues
-          })
-        ])
-      );
-    } catch (e) {
-      throw new Error("test failed");
-    }
-  });
-});
-
 describe("Script module initialization", () => {
+  beforeEach(() => {
+    Aflr.reset();
+  });
+
   test("It should return an error if not configured", async () => {
     try {
       await Script.list();
@@ -87,3 +30,66 @@ describe("Script module initialization", () => {
     expect(Script).toHaveProperty("retrieve");
   });
 });
+
+// describe("Script operations", () => {
+//   beforeEach(() => {
+//     Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+//   });
+//   console.log(Aflr);
+//   const testScriptText = "Hey testing!";
+//   const testValues = "test";
+//   let createdScriptId: string;
+
+//   test("It should create a new script", async () => {
+//     try {
+//       // @ts-ignore
+//       const { scriptId, scriptText, scriptName, moduleName, projectName } = await Script.create({
+//         scriptText: testScriptText,
+//         scriptName: testValues,
+//         moduleName: testValues,
+//         projectName: testValues
+//       });
+//       createdScriptId = scriptId;
+//       expect(scriptText).toMatch(testScriptText); // since section names are added automatically, we dont do exact check
+//       expect(scriptName).toBe(testValues);
+//       expect(moduleName).toBe(testValues);
+//       expect(projectName).toBe(testValues);
+//     } catch (e) {
+//       throw new Error("test failed");
+//     }
+//   });
+
+//   test("It should retrieve the created script", async () => {
+//     try {
+//       // @ts-ignore
+//       const { scriptText, scriptName, moduleName, projectName } = await Script.retrieve(
+//         createdScriptId
+//       );
+//       expect(scriptText).toMatch(testScriptText); // since section names are added automatically, we dont do exact check
+//       expect(scriptName).toBe(testValues);
+//       expect(moduleName).toBe(testValues);
+//       expect(projectName).toBe(testValues);
+//     } catch (e) {
+//       throw new Error("test failed");
+//     }
+//   });
+
+//   test("It should list all of the scripts and find the created one", async () => {
+//     try {
+//       const scripts = await Script.list();
+//       expect(Array.isArray(scripts)).toBe(true);
+//       expect(scripts).toEqual(
+//         expect.arrayContaining([
+//           expect.objectContaining({
+//             scriptText: expect.stringMatching(testScriptText),
+//             scriptName: testValues,
+//             moduleName: testValues,
+//             projectName: testValues
+//           })
+//         ])
+//       );
+//     } catch (e) {
+//       throw new Error("test failed");
+//     }
+//   });
+// });
