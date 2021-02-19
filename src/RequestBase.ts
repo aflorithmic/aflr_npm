@@ -1,18 +1,18 @@
 import axios, { AxiosInstance } from "axios";
 
 export class RequestBase {
-  private axios: AxiosInstance;
-  private url: string;
+  #axios: AxiosInstance;
+  #url: string;
 
   constructor(apiKey: string, url: string) {
-    this.axios = axios.create({ headers: { "x-api-key": apiKey } });
-    this.url = url;
+    this.#axios = axios.create({ headers: { "x-api-key": apiKey } });
+    this.#url = url;
   }
 
   public postRequest(data: unknown): any {
     return new Promise((res, rej) => {
-      this.axios
-        .post(this.url, data)
+      this.#axios
+        .post(this.#url, data)
         .then(({ data: result }) => res(result))
         .catch(({ response }) => rej(response));
     });
@@ -20,8 +20,8 @@ export class RequestBase {
 
   public getRequest(path = "", params: unknown = {}): any {
     return new Promise((res, rej) => {
-      this.axios
-        .get(`${this.url}/${path}`, {
+      this.#axios
+        .get(`${this.#url}/${path}`, {
           params
         })
         .then(({ data: result }) => res(result))

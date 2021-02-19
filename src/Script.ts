@@ -4,26 +4,26 @@ import { RequestBase } from "./RequestBase";
 import { IConfig, IScriptBody } from "./types";
 
 export class ScriptClass {
-  private initialized = false;
-  private RequestClass!: RequestBase;
+  #initialized = false;
+  #RequestClass!: RequestBase;
 
   public configure(config: IConfig): void | Promise<never> {
-    if (this.initialized) {
+    if (this.#initialized) {
       return isSubmoduleAlreadyInitializedError();
     }
     const url = `${config.baseUrl}/script`;
-    this.initialized = true;
-    this.RequestClass = new RequestBase(config.apiKey, url);
+    this.#initialized = true;
+    this.#RequestClass = new RequestBase(config.apiKey, url);
   }
 
   /**
    * List all scripts
    */
   public list(): Promise<never> | Promise<unknown> {
-    if (!this.initialized) {
+    if (!this.#initialized) {
       return isInitializedError();
     }
-    return this.RequestClass.getRequest();
+    return this.#RequestClass.getRequest();
   }
 
   /**
@@ -31,10 +31,10 @@ export class ScriptClass {
    * @param scriptId
    */
   public retrieve(scriptId: string): Promise<never> | Promise<unknown> {
-    if (!this.initialized) {
+    if (!this.#initialized) {
       return isInitializedError();
     }
-    return this.RequestClass.getRequest(scriptId);
+    return this.#RequestClass.getRequest(scriptId);
   }
 
   /**
@@ -42,16 +42,16 @@ export class ScriptClass {
    * @param data
    */
   public create(data: IScriptBody): Promise<never> | Promise<unknown> {
-    if (!this.initialized) {
+    if (!this.#initialized) {
       return isInitializedError();
     }
-    return this.RequestClass.postRequest(data);
+    return this.#RequestClass.postRequest(data);
   }
 
   public reset(): void {
-    this.initialized = false;
+    this.#initialized = false;
     // @ts-ignore
-    this.RequestClass = undefined;
+    this.#RequestClass = undefined;
   }
 }
 

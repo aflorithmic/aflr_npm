@@ -14,12 +14,12 @@ class AflrClass {
   public Script!: ScriptClass;
   public Speech!: SpeechClass;
   public Voice!: VoiceClass;
-  private config!: IConfig;
-  private components: IComponent[] = [];
-  private initialized = false;
+  #config!: IConfig;
+  #components: IComponent[] = [];
+  #initialized = false;
 
   public register(comp: IComponent) {
-    this.components.push(comp);
+    this.#components.push(comp);
   }
 
   /**
@@ -30,17 +30,17 @@ class AflrClass {
   public configure(config: IInputConfig) {
     if (!config || !config.apiKey) {
       return isValidApiKeyError();
-    } else if (this.initialized) {
+    } else if (this.#initialized) {
       return isModuleAlreadyInitializedError();
     }
 
     const baseUrl = config.debug ? API_BASE_URL_STAGING : API_BASE_URL;
 
-    this.config = { ...config, baseUrl };
-    this.initialized = true;
-    this.components.map(comp => comp.configure(this.config));
+    this.#config = { ...config, baseUrl };
+    this.#initialized = true;
+    this.#components.map(comp => comp.configure(this.#config));
 
-    return this.config;
+    return this.#config;
   }
 
   /**
@@ -48,9 +48,9 @@ class AflrClass {
    */
   public reset() {
     // @ts-ignore
-    this.config = {};
-    this.components.map(comp => comp.reset());
-    this.initialized = false;
+    this.#config = {};
+    this.#components.map(comp => comp.reset());
+    this.#initialized = false;
   }
 }
 
