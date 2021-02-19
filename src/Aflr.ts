@@ -50,6 +50,7 @@ class AflrClass {
     // @ts-ignore
     this.config = {};
     this.components.map(comp => comp.reset());
+    this.components = [];
   }
 }
 
