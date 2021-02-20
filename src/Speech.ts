@@ -24,7 +24,7 @@ export class SpeechClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest(scriptId);
+    return this.#RequestClass.getRequest(scriptId, { timeout: 30000 });
   }
 
   /**
