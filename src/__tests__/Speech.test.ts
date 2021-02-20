@@ -8,21 +8,15 @@ describe("Speech module initialization", () => {
     Aflr.reset();
   });
 
-  test("It should return an error if not configured", async () => {
-    try {
-      await Speech.retrieve("some-id");
-    } catch (e) {
-      expect(e.message).toMatch(/configure the package before using it/);
-    }
+  test("It should return an error if not configured", () => {
+    expect(() => Speech.retrieve("some-id")).toThrowError(/configure the package before using it/);
   });
 
-  test("It should not allow submodule configuration", async () => {
-    try {
-      Aflr.configure({ apiKey: "some-api-key" });
-      Speech.configure({ apiKey: "1", baseUrl: "1" });
-    } catch (e) {
-      expect(e.message).toMatch(/has already been initialized/);
-    }
+  test("It should not allow submodule configuration", () => {
+    Aflr.configure({ apiKey: "some-api-key" });
+    expect(() => Speech.configure({ apiKey: "1", baseUrl: "1" })).toThrowError(
+      /has already been initialized/
+    );
   });
 
   test("It should have some properties", () => {
@@ -57,6 +51,7 @@ describe("Speech operations", () => {
       expect(result.message).toBeDefined();
       expect(result.message).toMatch(/success/i);
     } catch (e) {
+      console.error(e);
       throw new Error("test failed");
     }
   });
@@ -71,6 +66,7 @@ describe("Speech operations", () => {
       expect(result[0].startsWith("https://")).toBe(true);
       expect(result[0]).toMatch(`${testValues}__${testValues}__${testValues}`);
     } catch (e) {
+      console.error(e);
       throw new Error("test failed");
     }
   }, 30000);

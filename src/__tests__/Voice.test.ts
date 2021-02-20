@@ -8,21 +8,15 @@ describe("Voice module initialization", () => {
     Aflr.reset();
   });
 
-  test("It should return an error if not configured", async () => {
-    try {
-      await Voice.list();
-    } catch (e) {
-      expect(e.message).toMatch(/configure the package before using it/);
-    }
+  test("It should return an error if not configured", () => {
+    expect(() => Voice.list()).toThrowError(/configure the package before using it/);
   });
 
   test("It should not allow submodule configuration", async () => {
-    try {
-      Aflr.configure({ apiKey: "some-api-key" });
-      Voice.configure({ apiKey: "1", baseUrl: "1" });
-    } catch (e) {
-      expect(e.message).toMatch(/has already been initialized/);
-    }
+    Aflr.configure({ apiKey: "some-api-key" });
+    expect(() => Voice.configure({ apiKey: "1", baseUrl: "1" })).toThrowError(
+      /has already been initialized/
+    );
   });
 
   test("It should have some properties", () => {
@@ -42,6 +36,7 @@ describe("Speech operations", () => {
       const voices: any = await Voice.list();
       expect(Array.isArray(voices.voices)).toBe(true);
     } catch (e) {
+      console.error(e);
       throw new Error("test failed");
     }
   });
