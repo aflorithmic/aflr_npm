@@ -18,8 +18,12 @@ class AflrClass {
   #components: IComponent[] = [];
   #initialized = false;
 
-  public register(comp: IComponent) {
+  public register(comp: IComponent): void {
     this.#components.push(comp);
+  }
+
+  public isInitialized(): boolean {
+    return this.#initialized;
   }
 
   /**
@@ -27,7 +31,7 @@ class AflrClass {
    * before any of the calls
    * @param config
    */
-  public configure(config: IInputConfig): void {
+  public configure(config: IInputConfig): IConfig {
     if (!config || !config.apiKey) {
       isValidApiKeyError();
     } else if (this.#initialized) {
@@ -39,12 +43,14 @@ class AflrClass {
     this.#config = { ...config, baseUrl };
     this.#initialized = true;
     this.#components.map(comp => comp.configure(this.#config));
+
+    return this.#config;
   }
 
   /**
    * Reset the initialization
    */
-  public reset() {
+  public reset(): void {
     // @ts-ignore
     this.#config = {};
     this.#components.map(comp => comp.reset());
