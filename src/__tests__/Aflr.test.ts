@@ -5,49 +5,39 @@ require("dotenv").config();
 const apiKey = process.env.API_KEY || "";
 
 describe("Main module initialization", () => {
-  beforeAll(() => Aflr.reset());
+  beforeEach(() => Aflr.reset());
 
-  test("It should require apiKey in configuration", async () => {
-    try {
-      // @ts-ignore
-      Aflr.configure();
-    } catch (e) {
-      expect(e.message).toMatch(/must be a valid string/);
-    }
+  test("It should require apiKey in configuration", () => {
+    // @ts-ignore
+    expect(() => Aflr.configure().toThrowError(/must be a valid string/));
   });
 
-  test("It should throw an error if configured twice", async () => {
-    try {
-      Aflr.configure({ apiKey, debug: true });
-      Aflr.configure({ apiKey, debug: true });
-    } catch (e) {
-      expect(e.message).toMatch(/has already been initialized/);
-    }
+  test("It should throw an error if configured twice", () => {
+    Aflr.configure({ apiKey, debug: true });
+    expect(() => Aflr.configure({ apiKey, debug: true })).toThrowError(
+      /has already been initialized/
+    );
   });
 
-  test("It should not throw an error if configured twice after resetting", async () => {
-    try {
-      Aflr.configure({ apiKey, debug: true });
-      Aflr.reset();
-      expect(Aflr.configure({ apiKey, debug: true })).not.toThrowError();
-    } catch (e) {
-      //
-    }
+  test("It should not throw an error if configured twice after resetting", () => {
+    Aflr.configure({ apiKey, debug: true });
+    Aflr.reset();
+    expect(() => Aflr.configure({ apiKey, debug: true })).not.toThrow();
   });
 
-  test("It should have staging and prod urls correctly", async () => {
-    try {
-      Aflr.configure({ apiKey, debug: true });
-      // @ts-ignore
-      expect(Aflr.Script.RequestClass.url).toMatch(API_BASE_URL_STAGING);
+  test("It should return if initialized", () => {
+    expect(Aflr.isInitialized()).toBe(false);
+    Aflr.configure({ apiKey, debug: true });
+    expect(Aflr.isInitialized()).toBe(true);
+    Aflr.reset();
+    expect(Aflr.isInitialized()).toBe(false);
+  });
 
-      Aflr.reset();
-
-      Aflr.configure({ apiKey });
-      // @ts-ignore
-      expect(Aflr.Script.RequestClass.url).toMatch(API_BASE_URL);
-    } catch (e) {
-      expect(e.message).toMatch(/has already been initialized/);
-    }
+  test("It should set base url correctly according to debug value", () => {
+    const { baseUrl: stagingBaseUrl } = Aflr.configure({ apiKey, debug: true });
+    expect(stagingBaseUrl).toMatch(API_BASE_URL_STAGING);
+    Aflr.reset();
+    const { baseUrl: prodBaseUrl } = Aflr.configure({ apiKey });
+    expect(prodBaseUrl).toMatch(API_BASE_URL);
   });
 });
