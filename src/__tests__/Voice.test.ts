@@ -12,7 +12,7 @@ describe("Voice module initialization", () => {
     expect(() => Voice.list()).toThrowError(/configure the package before using it/);
   });
 
-  test("It should not allow submodule configuration", async () => {
+  test("It should not allow submodule configuration", () => {
     Aflr.configure({ apiKey: "some-api-key" });
     expect(() => Voice.configure({ apiKey: "1", baseUrl: "1" })).toThrowError(
       /has already been initialized/
