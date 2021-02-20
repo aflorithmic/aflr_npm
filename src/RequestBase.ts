@@ -1,4 +1,4 @@
-import axios, { AxiosInstance } from "axios";
+import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 
 export class RequestBase {
   #axios: AxiosInstance;
@@ -9,23 +9,21 @@ export class RequestBase {
     this.#url = url;
   }
 
-  public postRequest(data: unknown): any {
+  public postRequest(data: unknown, config: AxiosRequestConfig = {}): any {
     return new Promise((res, rej) => {
       this.#axios
-        .post(this.#url, data)
+        .post(this.#url, data, { ...config })
         .then(({ data: result }) => res(result))
-        .catch(({ response }) => rej(response));
+        .catch(({ response }) => rej(response.data));
     });
   }
 
-  public getRequest(path = "", params: unknown = {}): any {
+  public getRequest(path = "", config: AxiosRequestConfig = {}): any {
     return new Promise((res, rej) => {
       this.#axios
-        .get(`${this.#url}/${path}`, {
-          params
-        })
+        .get(`${this.#url}/${path}`, { ...config })
         .then(({ data: result }) => res(result))
-        .catch(({ response }) => rej(response));
+        .catch(({ response }) => rej(response.data));
     });
   }
 }
