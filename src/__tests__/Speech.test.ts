@@ -73,5 +73,5 @@ describe("Speech operations", () => {
     } catch (e) {
       throw new Error("test failed");
     }
-  }, 60000);
+  }, 30000);
 });
