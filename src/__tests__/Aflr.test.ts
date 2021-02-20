@@ -35,9 +35,9 @@ describe("Main module initialization", () => {
 
   test("It should set base url correctly according to debug value", () => {
     const { baseUrl: stagingBaseUrl } = Aflr.configure({ apiKey, debug: true });
-    expect(stagingBaseUrl).toMatch(API_BASE_URL_STAGING);
+    expect(stagingBaseUrl).toBe(API_BASE_URL_STAGING);
     Aflr.reset();
     const { baseUrl: prodBaseUrl } = Aflr.configure({ apiKey });
-    expect(prodBaseUrl).toMatch(API_BASE_URL);
+    expect(prodBaseUrl).toBe(API_BASE_URL);
   });
 });
