@@ -1,6 +1,6 @@
 [![npm](https://img.shields.io/npm/v/aflr?style=for-the-badge)](https://www.npmjs.com/package/aflr)
 
-# Aflorithmic NodeJS SDK
+# Aflorithmic Javascript SDK
 
 ## Documentation
 
