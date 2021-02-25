@@ -25,4 +25,7 @@ export interface IScriptBody {
 
 export interface ISpeechBody {
   scriptId: string;
+  voiceName?: string;
+  voiceProviderName?: string;
+  scriptSpeed?: string;
 }
