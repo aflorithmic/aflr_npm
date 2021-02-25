@@ -1,4 +1,5 @@
 import Aflr, { Voice } from "../index";
+import { RequestBase } from "../RequestBase";
 require("dotenv").config();
 
 const apiKey = process.env.API_KEY || "";
@@ -14,7 +15,7 @@ describe("Voice module initialization", () => {
 
   test("It should not allow submodule configuration", () => {
     Aflr.configure({ apiKey: "some-api-key" });
-    expect(() => Voice.configure({ apiKey: "1", baseUrl: "1" })).toThrowError(
+    expect(() => Voice.configure({ apiKey: "1", baseUrl: "1" }, new RequestBase(""))).toThrowError(
       /has already been initialized/
     );
   });
@@ -25,7 +26,7 @@ describe("Voice module initialization", () => {
   });
 });
 
-describe("Speech operations", () => {
+describe("Voice operations", () => {
   beforeEach(() => {
     Aflr.reset();
     Aflr.configure({ apiKey, debug: true });

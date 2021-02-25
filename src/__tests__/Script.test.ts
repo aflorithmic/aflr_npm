@@ -1,4 +1,5 @@
 import Aflr, { Script } from "../index";
+import { RequestBase } from "../RequestBase";
 require("dotenv").config();
 
 const apiKey = process.env.API_KEY || "";
@@ -14,7 +15,7 @@ describe("Script module initialization", () => {
 
   test("It should not allow submodule configuration", () => {
     Aflr.configure({ apiKey: "some-api-key" });
-    expect(() => Script.configure({ apiKey: "1", baseUrl: "1" })).toThrowError(
+    expect(() => Script.configure({ apiKey: "1", baseUrl: "1" }, new RequestBase(""))).toThrowError(
       /has already been initialized/
     );
   });
