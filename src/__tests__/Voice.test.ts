@@ -1,6 +1,6 @@
 import Aflr, { Voice } from "../index";
 import { RequestBase } from "../RequestBase";
-import { debug } from "./test-config";
+import { debug } from "../../test-config";
 require("dotenv").config();
 
 const apiKey = process.env.API_KEY || "";

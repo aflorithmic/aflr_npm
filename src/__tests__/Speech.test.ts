@@ -1,6 +1,6 @@
 import Aflr, { Script, Speech } from "../index";
 import { RequestBase } from "../RequestBase";
-import { debug } from "./test-config";
+import { debug } from "../../test-config";
 require("dotenv").config();
 
 const apiKey = process.env.API_KEY || "";
@@ -65,13 +65,9 @@ describe("Speech operations", () => {
   test("It should retrieve the created speech", async () => {
     try {
       const rawResult: any = await Speech.retrieve(createdScriptId);
-      console.log("🚀 ~ file: Speech.test.ts ~ line 64 ~ test ~ rawResult", rawResult);
       expect(rawResult.default).toBeDefined();
-
-      const result: Array<any> = rawResult.default;
-
-      expect(result[0].startsWith("https://")).toBe(true);
-      expect(result[0]).toMatch(`${testValues}__${testValues}__${testValues}`);
+      expect(rawResult.default.startsWith("https://")).toBe(true);
+      expect(rawResult.default).toMatch(`${testValues}/${testValues}/${testValues}`);
     } catch (e) {
       console.error(e);
       throw new Error("test failed");

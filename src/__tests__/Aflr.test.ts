@@ -1,6 +1,6 @@
 import { API_BASE_URL, API_BASE_URL_STAGING } from "../constants";
 import Aflr from "../index";
-import { debug } from "./test-config";
+import { debug } from "../../test-config";
 require("dotenv").config();
 
 const apiKey = process.env.API_KEY || "";
@@ -33,10 +33,10 @@ describe("Main module initialization", () => {
   });
 
   test("It should set base url correctly according to debug value", () => {
-    const { baseUrl: stagingBaseUrl } = Aflr.configure({ apiKey, debug });
+    const { baseUrl: stagingBaseUrl } = Aflr.configure({ apiKey, debug: true });
     expect(stagingBaseUrl).toBe(API_BASE_URL_STAGING);
     Aflr.reset();
-    const { baseUrl: prodBaseUrl } = Aflr.configure({ apiKey });
+    const { baseUrl: prodBaseUrl } = Aflr.configure({ apiKey, debug: false });
     expect(prodBaseUrl).toBe(API_BASE_URL);
   });
 });
