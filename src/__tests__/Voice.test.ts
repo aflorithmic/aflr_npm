@@ -1,5 +1,6 @@
 import Aflr, { Voice } from "../index";
 import { RequestBase } from "../RequestBase";
+import { debug } from "./test-config";
 require("dotenv").config();
 
 const apiKey = process.env.API_KEY || "";
@@ -29,7 +30,7 @@ describe("Voice module initialization", () => {
 describe("Voice operations", () => {
   beforeEach(() => {
     Aflr.reset();
-    Aflr.configure({ apiKey, debug: true });
+    Aflr.configure({ apiKey, debug });
   });
 
   test("It should list all of the scripts and find the created one", async () => {

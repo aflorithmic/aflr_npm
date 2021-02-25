@@ -1,5 +1,6 @@
 import Aflr, { Script, Speech } from "../index";
 import { RequestBase } from "../RequestBase";
+import { debug } from "./test-config";
 require("dotenv").config();
 
 const apiKey = process.env.API_KEY || "";
@@ -30,7 +31,7 @@ describe("Speech module initialization", () => {
 describe("Speech operations", () => {
   beforeEach(() => {
     Aflr.reset();
-    Aflr.configure({ apiKey, debug: true });
+    Aflr.configure({ apiKey, debug });
   });
   const testScriptText = "Hey testing!";
   const testValues = "test";
@@ -46,7 +47,6 @@ describe("Speech operations", () => {
         projectName: testValues
       });
       createdScriptId = scriptId;
-      console.log("🚀 ~ file: Speech.test.ts ~ line 49 ~ test ~ scriptId", scriptId);
 
       const result: any = await Speech.create({
         scriptId: createdScriptId,
@@ -62,19 +62,19 @@ describe("Speech operations", () => {
     }
   });
 
-  // test("It should retrieve the created speech", async () => {
-  //   try {
-  //     const rawResult: any = await Speech.retrieve(createdScriptId);
-  //     console.log("🚀 ~ file: Speech.test.ts ~ line 64 ~ test ~ rawResult", rawResult);
-  //     expect(rawResult.default).toBeDefined();
+  test("It should retrieve the created speech", async () => {
+    try {
+      const rawResult: any = await Speech.retrieve(createdScriptId);
+      console.log("🚀 ~ file: Speech.test.ts ~ line 64 ~ test ~ rawResult", rawResult);
+      expect(rawResult.default).toBeDefined();
 
-  //     const result: Array<any> = rawResult.default;
+      const result: Array<any> = rawResult.default;
 
-  //     expect(result[0].startsWith("https://")).toBe(true);
-  //     expect(result[0]).toMatch(`${testValues}__${testValues}__${testValues}`);
-  //   } catch (e) {
-  //     console.error(e);
-  //     throw new Error("test failed");
-  //   }
-  // }, 30000);
+      expect(result[0].startsWith("https://")).toBe(true);
+      expect(result[0]).toMatch(`${testValues}__${testValues}__${testValues}`);
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  }, 30000);
 });
