@@ -27,7 +27,10 @@ export class SpeechClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest(this.#file_url, scriptId, { timeout: 30000 });
+    return this.#RequestClass.getRequest(this.#file_url, undefined, {
+      params: { scriptId },
+      timeout: 30000
+    });
   }
 
   /**
