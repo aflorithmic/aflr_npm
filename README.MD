@@ -44,4 +44,4 @@ then
 
 ### Running tests
 
-To be able to run the tests, create a `.env` file and put a valid staging `API_KEY` parameter in it.
+To be able to run the tests, create a `.env` file and put a valid `API_KEY` parameter in it. Also see `test-config.ts` file.
