@@ -6,14 +6,15 @@ import { IConfig, IScriptBody } from "./types";
 export class ScriptClass {
   #initialized = false;
   #RequestClass!: RequestBase;
+  #url = "";
 
-  public configure(config: IConfig): void {
+  public configure(config: IConfig, requestClass: RequestBase): void {
     if (this.#initialized) {
       isSubmoduleAlreadyInitializedError();
     }
-    const url = `${config.baseUrl}/script`;
+    this.#url = `${config.baseUrl}/script`;
     this.#initialized = true;
-    this.#RequestClass = new RequestBase(config.apiKey, url);
+    this.#RequestClass = requestClass;
   }
 
   /**
@@ -23,7 +24,7 @@ export class ScriptClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest();
+    return this.#RequestClass.getRequest(this.#url);
   }
 
   /**
@@ -34,7 +35,7 @@ export class ScriptClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest(scriptId);
+    return this.#RequestClass.getRequest(this.#url, scriptId);
   }
 
   /**
@@ -45,13 +46,14 @@ export class ScriptClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.postRequest(data);
+    return this.#RequestClass.postRequest(this.#url, data);
   }
 
   public reset(): void {
     this.#initialized = false;
     // @ts-ignore
     this.#RequestClass = undefined;
+    this.#url = "";
   }
 }
 
