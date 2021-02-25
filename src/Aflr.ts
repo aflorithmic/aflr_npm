@@ -43,7 +43,7 @@ class AflrClass {
 
     this.#config = { ...config, baseUrl };
     this.#initialized = true;
-    const requestClass = new RequestBase(this.#config.baseUrl);
+    const requestClass = new RequestBase(this.#config.apiKey);
     this.#components.map(comp => comp.configure(this.#config, requestClass));
 
     return this.#config;
