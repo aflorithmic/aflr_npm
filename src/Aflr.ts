@@ -1,12 +1,13 @@
 import { API_BASE_URL, API_BASE_URL_STAGING } from "./constants";
 import { isModuleAlreadyInitializedError, isValidApiKeyError } from "./Errors";
+import { RequestBase } from "./RequestBase";
 import { ScriptClass } from "./Script";
 import { SpeechClass } from "./Speech";
 import { IConfig, IInputConfig } from "./types";
 import { VoiceClass } from "./Voice";
 
 interface IComponent {
-  configure(config: IConfig): void | Promise<never>;
+  configure(config: IConfig, requestClass: RequestBase): void | Promise<never>;
   reset(): void;
 }
 
@@ -42,7 +43,8 @@ class AflrClass {
 
     this.#config = { ...config, baseUrl };
     this.#initialized = true;
-    this.#components.map(comp => comp.configure(this.#config));
+    const requestClass = new RequestBase(this.#config.baseUrl);
+    this.#components.map(comp => comp.configure(this.#config, requestClass));
 
     return this.#config;
   }
