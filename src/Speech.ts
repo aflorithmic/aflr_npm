@@ -6,14 +6,17 @@ import { IConfig, ISpeechBody } from "./types";
 export class SpeechClass {
   #initialized = false;
   #RequestClass!: RequestBase;
+  #url = "";
+  #file_url = "";
 
-  public configure(config: IConfig): void {
+  public configure(config: IConfig, requestClass: RequestBase): void {
     if (this.#initialized) {
       isSubmoduleAlreadyInitializedError();
     }
-    const url = `${config.baseUrl}/speech`;
+    this.#url = `${config.baseUrl}/speech`;
+    this.#file_url = `${config.baseUrl}/file/speech`;
     this.#initialized = true;
-    this.#RequestClass = new RequestBase(config.apiKey, url);
+    this.#RequestClass = requestClass;
   }
 
   /**
@@ -24,7 +27,7 @@ export class SpeechClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest(scriptId, { timeout: 30000 });
+    return this.#RequestClass.getRequest(this.#file_url, scriptId, { timeout: 30000 });
   }
 
   /**
@@ -35,13 +38,15 @@ export class SpeechClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.postRequest({ ...data, api: false });
+    return this.#RequestClass.postRequest(this.#url, data);
   }
 
   public reset(): void {
     this.#initialized = false;
     // @ts-ignore
     this.#RequestClass = undefined;
+    this.#url = "";
+    this.#file_url = "";
   }
 }
 

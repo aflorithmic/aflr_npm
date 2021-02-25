@@ -6,14 +6,15 @@ import { IConfig } from "./types";
 export class VoiceClass {
   #initialized = false;
   #RequestClass!: RequestBase;
+  #url = "";
 
-  public configure(config: IConfig): void {
+  public configure(config: IConfig, requestClass: RequestBase): void {
     if (this.#initialized) {
       isSubmoduleAlreadyInitializedError();
     }
-    const url = `${config.baseUrl}/voice`;
+    this.#url = `${config.baseUrl}/voice`;
     this.#initialized = true;
-    this.#RequestClass = new RequestBase(config.apiKey, url);
+    this.#RequestClass = requestClass;
   }
 
   /**
@@ -23,13 +24,14 @@ export class VoiceClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest();
+    return this.#RequestClass.getRequest(this.#url);
   }
 
   public reset(): void {
     this.#initialized = false;
     // @ts-ignore
-    this.RequestClass = undefined;
+    this.#RequestClass = undefined;
+    this.#url = "";
   }
 }
 
