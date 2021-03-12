@@ -51,7 +51,8 @@ describe("Speech operations", () => {
       const result: any = await Speech.create({
         scriptId: createdScriptId,
         voiceName: "Joanna",
-        voiceProviderName: "Polly"
+        voiceProvider: "polly",
+        scriptSpeed: "100"
       });
 
       expect(result.message).toBeDefined();
