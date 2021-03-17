@@ -29,3 +29,8 @@ export interface ISpeechBody {
   voiceProvider?: string;
   scriptSpeed?: string;
 }
+
+export interface ISyncTTSBody {
+  voice: string;
+  text: string;
+}
