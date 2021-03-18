@@ -20,14 +20,17 @@ export class MasteringClass {
   }
 
   /**
-   * Get mastering by scriptId
+   * Get mastering by scriptId & parameters
    * @param scriptId
+   * @param parameters
    */
-  public retrieve(scriptId: string): Promise<unknown> {
+  public retrieve(scriptId: string, parameters: Record<string, string>): Promise<unknown> {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest(this.#file_url, scriptId);
+    return this.#RequestClass.getRequest(this.#file_url, "", {
+      params: { ...parameters, scriptId }
+    });
   }
 
   /**
