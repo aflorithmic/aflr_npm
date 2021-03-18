@@ -1,9 +1,6 @@
 import Aflr, { Script, Speech } from "../index";
 import { RequestBase } from "../RequestBase";
-import { debug } from "../../test-config";
-require("dotenv").config();
-
-const apiKey = process.env.API_KEY || "";
+import { debug, apiKey } from "../../test-config";
 
 describe("Speech module initialization", () => {
   beforeEach(() => {
@@ -51,7 +48,8 @@ describe("Speech operations", () => {
       const result: any = await Speech.create({
         scriptId: createdScriptId,
         voiceName: "Joanna",
-        voiceProviderName: "Polly"
+        voiceProvider: "polly",
+        scriptSpeed: "100"
       });
 
       expect(result.message).toBeDefined();

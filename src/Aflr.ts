@@ -1,10 +1,11 @@
 import { API_BASE_URL, API_BASE_URL_STAGING } from "./constants";
 import { isModuleAlreadyInitializedError, isValidApiKeyError } from "./Errors";
+import { IConfig, IInputConfig } from "./types";
 import { RequestBase } from "./RequestBase";
 import { ScriptClass } from "./Script";
 import { SpeechClass } from "./Speech";
-import { IConfig, IInputConfig } from "./types";
 import { VoiceClass } from "./Voice";
+import { SyncTTSClass } from "./SyncTTS";
 
 interface IComponent {
   configure(config: IConfig, requestClass: RequestBase): void | Promise<never>;
@@ -15,6 +16,7 @@ class AflrClass {
   public Script!: ScriptClass;
   public Speech!: SpeechClass;
   public Voice!: VoiceClass;
+  public SyncTTS!: SyncTTSClass;
   #config!: IConfig;
   #components: IComponent[] = [];
   #initialized = false;
