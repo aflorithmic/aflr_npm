@@ -34,3 +34,14 @@ export interface ISyncTTSBody {
   voice: string;
   text: string;
 }
+
+export interface ISoundBody {
+  scriptId: string;
+  backgroundTrackId: string;
+}
+
+export interface IMasteringBody {
+  scriptId: string;
+  backgroundTrackId: string;
+  audience: [{ [key: string]: string }];
+}
