@@ -15,7 +15,7 @@ It can be used by a **singular import** or **modular imports**.
 ```javascript
 import Aflr from "aflr";
 
-Aflr.configure();
+Aflr.configure(...);
 
 Aflr.Script.list();
 ```
@@ -23,7 +23,7 @@ Aflr.Script.list();
 ```javascript
 import Aflr, { Script, Voice, Speech } from "aflr";
 
-Aflr.configure();
+Aflr.configure(...);
 
 Script.list();
 ```
