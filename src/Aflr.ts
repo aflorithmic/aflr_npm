@@ -5,6 +5,8 @@ import { RequestBase } from "./RequestBase";
 import { ScriptClass } from "./Script";
 import { SpeechClass } from "./Speech";
 import { VoiceClass } from "./Voice";
+import { SoundClass } from "./Sound";
+import { MasteringClass } from "./Mastering";
 // import { SyncTTSClass } from "./SyncTTS";
 
 interface IComponent {
@@ -17,6 +19,8 @@ class AflrClass {
   public Speech!: SpeechClass;
   public Voice!: VoiceClass;
   // public SyncTTS!: SyncTTSClass;
+  public Sound!: SoundClass;
+  public Mastering!: MasteringClass;
   #config!: IConfig;
   #components: IComponent[] = [];
   #initialized = false;
