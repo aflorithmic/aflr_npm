@@ -34,7 +34,7 @@ describe("Mastering operations", () => {
   });
   const backgroundTrackId = "full__citynights.wav";
   const testScriptText = "Hey testing!";
-  const testValues = "test";
+  const testValues = "test3";
   let createdScriptId: string;
 
   test("It should create a speech from a new script to test the mastering", async () => {

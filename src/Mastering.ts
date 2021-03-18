@@ -24,7 +24,7 @@ export class MasteringClass {
    * @param scriptId
    * @param parameters
    */
-  public retrieve(scriptId: string, parameters: Record<string, string>): Promise<unknown> {
+  public retrieve(scriptId: string, parameters: Record<string, string> = {}): Promise<unknown> {
     if (!this.#initialized) {
       isInitializedError();
     }

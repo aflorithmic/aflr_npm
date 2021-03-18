@@ -8,9 +8,7 @@ describe("Sound module initialization", () => {
   });
 
   test("It should return an error if not configured", () => {
-    expect(() => Sound.retrieve("some-id", {})).toThrowError(
-      /configure the package before using it/
-    );
+    expect(() => Sound.retrieve("some-id")).toThrowError(/configure the package before using it/);
   });
 
   test("It should not allow submodule configuration", () => {
@@ -34,7 +32,7 @@ describe("Sound operations", () => {
   });
   const backgroundTrackId = "full__citynights.wav";
   const testScriptText = "Hey testing!";
-  const testValues = "test";
+  const testValues = "test3";
   let createdScriptId: string;
 
   test("It should create a speech from a new script to test the sound", async () => {
@@ -88,7 +86,7 @@ describe("Sound operations", () => {
 
   test("It should retrieve the sound template", async () => {
     try {
-      const rawResult: any = await Sound.retrieve(createdScriptId, {});
+      const rawResult: any = await Sound.retrieve(createdScriptId);
       expect(rawResult.url.startsWith("https://")).toBe(true);
       expect(rawResult.url).toMatch(`${testValues}/${testValues}/${testValues}`);
     } catch (e) {
