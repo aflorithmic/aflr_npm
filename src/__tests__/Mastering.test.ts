@@ -75,7 +75,7 @@ describe("Mastering operations", () => {
 
   test("It should create the mastering template", async () => {
     try {
-      const bg_tracks = await Sound.list();
+      const bg_tracks: any = await Sound.list();
       const rawResult: any = await Mastering.create({
         scriptId: createdScriptId,
         backgroundTrackId: bg_tracks[0]["id"]

@@ -74,7 +74,7 @@ describe("Sound operations", () => {
 
   test("It should create the sound template", async () => {
     try {
-      const bg_tracks = await Sound.list();
+      const bg_tracks: any = await Sound.list();
       const rawResult: any = await Sound.create({
         scriptId: createdScriptId,
         backgroundTrackId: bg_tracks[0]["id"]
