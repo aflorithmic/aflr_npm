@@ -31,9 +31,8 @@ describe("Sound operations", () => {
     Aflr.reset();
     Aflr.configure({ apiKey, debug });
   });
-  const backgroundTrackId = "full__citynights.wav";
-  const testScriptText = "Hey testing!";
-  const testValues = "test3";
+  const testScriptText = "Hey testing testing!";
+  const testValues = "test5";
   let createdScriptId: string;
 
   test("It should create a speech from a new script to test the sound", async () => {
@@ -75,7 +74,11 @@ describe("Sound operations", () => {
 
   test("It should create the sound template", async () => {
     try {
-      const rawResult: any = await Sound.create({ scriptId: createdScriptId, backgroundTrackId });
+      const bg_tracks = await Sound.list();
+      const rawResult: any = await Sound.create({
+        scriptId: createdScriptId,
+        backgroundTrackId: bg_tracks[0]["id"]
+      });
       expect(rawResult.url.startsWith("https://")).toBe(true);
       expect(rawResult.url).toMatch(`${testValues}/${testValues}/${testValues}`);
     } catch (e) {

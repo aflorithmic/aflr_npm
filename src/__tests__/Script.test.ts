@@ -31,8 +31,8 @@ describe("Script operations", () => {
     Aflr.reset();
     Aflr.configure({ apiKey, debug });
   });
-  const testScriptText = "Hey testing!";
-  const testValues = "test";
+  const testScriptText = "Hey testing testing!";
+  const testValues = "test7";
   let createdScriptId: string;
 
   test("It should create a new script", async () => {

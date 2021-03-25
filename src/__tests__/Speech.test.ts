@@ -30,8 +30,8 @@ describe("Speech operations", () => {
     Aflr.reset();
     Aflr.configure({ apiKey, debug });
   });
-  const testScriptText = "Hey testing!";
-  const testValues = "test";
+  const testScriptText = "Hey testing testing!";
+  const testValues = "test6";
   let createdScriptId: string;
 
   test("It should create a speech from a new script", async () => {

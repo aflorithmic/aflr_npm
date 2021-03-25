@@ -1,4 +1,4 @@
-import Aflr, { Script, Speech, Mastering } from "../index";
+import Aflr, { Script, Speech, Mastering, Sound } from "../index";
 import { RequestBase } from "../RequestBase";
 import { debug, apiKey } from "../../test-config";
 
@@ -32,9 +32,8 @@ describe("Mastering operations", () => {
     Aflr.reset();
     Aflr.configure({ apiKey, debug });
   });
-  const backgroundTrackId = "full__citynights.wav";
-  const testScriptText = "Hey testing!";
-  const testValues = "test3";
+  const testScriptText = "Hey testing testing!";
+  const testValues = "test4";
   let createdScriptId: string;
 
   test("It should create a speech from a new script to test the mastering", async () => {
@@ -76,9 +75,10 @@ describe("Mastering operations", () => {
 
   test("It should create the mastering template", async () => {
     try {
+      const bg_tracks = await Sound.list();
       const rawResult: any = await Mastering.create({
         scriptId: createdScriptId,
-        backgroundTrackId
+        backgroundTrackId: bg_tracks[0]["id"]
       });
       expect(rawResult.MESSAGE).toBeDefined();
       expect(rawResult.MESSAGE).toMatch(/successful/gi);
