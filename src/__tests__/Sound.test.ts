@@ -22,6 +22,7 @@ describe("Sound module initialization", () => {
     Aflr.configure({ apiKey: "some-api-key" });
     expect(Sound).toHaveProperty("create");
     expect(Sound).toHaveProperty("retrieve");
+    expect(Sound).toHaveProperty("list");
   });
 });
 
@@ -93,4 +94,15 @@ describe("Sound operations", () => {
       throw new Error("test failed");
     }
   }, 30000);
+
+  test("It should list all the background tracks", async () => {
+    try {
+      const rawResult: any = await Sound.list();
+      expect(rawResult instanceof Array).toBe(true);
+      rawResult.every((url: any) => expect(url).toHaveProperty("id"));
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  });
 });

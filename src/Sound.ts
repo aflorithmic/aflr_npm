@@ -8,6 +8,7 @@ export class SoundClass {
   #RequestClass!: RequestBase;
   #url = "";
   #file_url = "";
+  #bg_url = "";
 
   public configure(config: IConfig, requestClass: RequestBase): void {
     if (this.#initialized) {
@@ -15,6 +16,7 @@ export class SoundClass {
     }
     this.#url = `${config.baseUrl}/sound`;
     this.#file_url = `${config.baseUrl}/file/sound`;
+    this.#bg_url = `${config.baseUrl}/file/bg`;
     this.#initialized = true;
     this.#RequestClass = requestClass;
   }
@@ -42,12 +44,23 @@ export class SoundClass {
     return this.#RequestClass.postRequest(this.#url, data);
   }
 
+  /**
+   * List all scripts
+   */
+  public list(): Promise<unknown> {
+    if (!this.#initialized) {
+      isInitializedError();
+    }
+    return this.#RequestClass.getRequest(this.#bg_url);
+  }
+
   public reset(): void {
     this.#initialized = false;
     // @ts-ignore
     this.#RequestClass = undefined;
     this.#url = "";
     this.#file_url = "";
+    this.#bg_url = "";
   }
 }
 
