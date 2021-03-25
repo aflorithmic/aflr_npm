@@ -42,5 +42,5 @@ export interface ISoundBody {
 export interface IMasteringBody {
   scriptId: string;
   backgroundTrackId: string;
-  audience: [{ [key: string]: string }];
+  audience?: [{ [key: string]: string }];
 }

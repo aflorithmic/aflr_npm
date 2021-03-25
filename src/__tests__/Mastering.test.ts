@@ -78,8 +78,7 @@ describe("Mastering operations", () => {
     try {
       const rawResult: any = await Mastering.create({
         scriptId: createdScriptId,
-        backgroundTrackId,
-        audience: [{}]
+        backgroundTrackId
       });
       expect(rawResult.MESSAGE).toBeDefined();
       expect(rawResult.MESSAGE).toMatch(/successful/gi);
