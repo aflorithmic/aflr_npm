@@ -45,7 +45,7 @@ export class SoundClass {
   }
 
   /**
-   * List all scripts
+   * List all background tracks
    */
   public list(): Promise<unknown> {
     if (!this.#initialized) {
