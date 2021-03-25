@@ -49,7 +49,6 @@ describe("Sound operations", () => {
       const result: any = await Speech.create({
         scriptId: createdScriptId,
         voiceName: "Joanna",
-        voiceProvider: "polly",
         scriptSpeed: "100"
       });
 
