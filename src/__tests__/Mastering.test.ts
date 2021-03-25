@@ -80,8 +80,8 @@ describe("Mastering operations", () => {
         scriptId: createdScriptId,
         backgroundTrackId: bg_tracks[0]["id"]
       });
-      expect(rawResult.MESSAGE).toBeDefined();
-      expect(rawResult.MESSAGE).toMatch(/successful/gi);
+      expect(rawResult.Message).toBeDefined();
+      expect(rawResult.Message).toMatch(/successful/gi);
     } catch (e) {
       console.error(e);
       throw new Error("test failed");
