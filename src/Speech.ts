@@ -40,16 +40,25 @@ export class SpeechClass {
   public create(data: ISpeechBody): Promise<unknown> {
     // todo: remove
 
+    // @ts-ignore
     if (data["scriptSpeed"]) {
+      // @ts-ignore
       data["speed"] = data["scriptSpeed"];
+      // @ts-ignore
       delete data["scriptSpeed"];
       console.log(
-        "scriptSpeed is renamed to speed, it will be deprecated in the next minor version"
+        "scriptSpeed is renamed to speed, it will be deprecated in the next minor version - AFLR"
       );
-    } else if (data["voiceName"]) {
+    }
+    // @ts-ignore
+    if (data["voiceName"]) {
+      // @ts-ignore
       data["voice"] = data["voiceName"];
+      // @ts-ignore
       delete data["voiceName"];
-      console.log("voiceName is renamed to voice, it will be deprecated in the next minor version");
+      console.log(
+        "voiceName is renamed to voice, it will be deprecated in the next minor version - AFLR"
+      );
     }
 
     if (!this.#initialized) {
