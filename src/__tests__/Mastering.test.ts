@@ -49,8 +49,8 @@ describe("Mastering operations", () => {
 
       const result: any = await Speech.create({
         scriptId: createdScriptId,
-        voiceName: "Joanna",
-        scriptSpeed: "100"
+        voice: "Joanna",
+        speed: "100"
       });
 
       expect(result.message).toBeDefined();

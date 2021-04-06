@@ -38,6 +38,20 @@ export class SpeechClass {
    * @param data
    */
   public create(data: ISpeechBody): Promise<unknown> {
+    // todo: remove
+
+    if (data["scriptSpeed"]) {
+      data["speed"] = data["scriptSpeed"];
+      delete data["scriptSpeed"];
+      console.log(
+        "scriptSpeed is renamed to speed, it will be deprecated in the next minor version"
+      );
+    } else if (data["voiceName"]) {
+      data["voice"] = data["voiceName"];
+      delete data["voiceName"];
+      console.log("voiceName is renamed to voice, it will be deprecated in the next minor version");
+    }
+
     if (!this.#initialized) {
       isInitializedError();
     }
