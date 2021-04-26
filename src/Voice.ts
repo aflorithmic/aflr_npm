@@ -7,14 +7,14 @@ export class VoiceClass {
   #initialized = false;
   #RequestClass!: RequestBase;
   #url = "";
-  #url_parameters = "";
+  #parameters_url = "";
 
   public configure(config: IConfig, requestClass: RequestBase): void {
     if (this.#initialized) {
       isSubmoduleAlreadyInitializedError();
     }
     this.#url = `${config.baseUrl}/voice`;
-    this.#url_parameters = `${config.baseUrl}/voice/parameter`;
+    this.#parameters_url = `${config.baseUrl}/voice/parameter`;
     this.#initialized = true;
     this.#RequestClass = requestClass;
   }
@@ -36,7 +36,7 @@ export class VoiceClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest(this.#url_parameters);
+    return this.#RequestClass.getRequest(this.#parameters_url);
   }
 
   public reset(): void {
