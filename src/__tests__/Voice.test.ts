@@ -25,12 +25,11 @@ describe("Voice module initialization", () => {
 });
 
 describe("Voice operations", () => {
+  let allVoicesCount: number;
   beforeEach(() => {
     Aflr.reset();
     Aflr.configure({ apiKey, debug });
   });
-
-  let allVoicesCount: number;
 
   test("It should list all of the voices", async () => {
     try {
@@ -60,10 +59,7 @@ describe("Voice operations", () => {
 
   test("It should not return any voice, and should list available filtering parmeters", async () => {
     try {
-      await Voice.list({
-        notExistingFilteringParameter: "value"
-      });
-      throw new Error("test failed");
+      await Voice.list({ notExistingFilteringParameter: "value" });
     } catch (e) {
       expect(e).toHaveProperty("message");
       expect(e).toHaveProperty("allowedFilteringParameters");
@@ -73,7 +69,13 @@ describe("Voice operations", () => {
   test("It should list all of the available filtering parameters", async () => {
     try {
       const parameters: any = await Voice.parameters();
-      expect(typeof parameters === "object").toBe(true);
+      expect(typeof parameters).toEqual("object");
+      for (const parameter in parameters) {
+        expect(Array.isArray(parameters[parameter])).toBe(true);
+        for (const value of parameters[parameter]) {
+          expect(typeof value).toEqual("string");
+        }
+      }
     } catch (e) {
       console.error(e);
       throw new Error("test failed");
