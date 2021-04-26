@@ -32,7 +32,8 @@ describe("Voice operations", () => {
 
   test("It should list all of the scripts and find the created one", async () => {
     try {
-      const voices: any = await Voice.list();
+      const voices: any = await Voice.list({ industryExamples: "education" });
+      console.log(voices["voices"].length);
       expect(Array.isArray(voices.voices)).toBe(true);
     } catch (e) {
       console.error(e);
