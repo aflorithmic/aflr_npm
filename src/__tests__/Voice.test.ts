@@ -30,10 +30,19 @@ describe("Voice operations", () => {
     Aflr.configure({ apiKey, debug });
   });
 
-  test("It should list all of the scripts and find the created one", async () => {
+  test("It should list all of the voices", async () => {
     try {
-      const voices: any = await Voice.list({ industryExamples: "education" });
-      console.log(voices["voices"].length);
+      const voices: any = await Voice.list();
+      expect(Array.isArray(voices.voices)).toBe(true);
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  });
+
+  test("It should list all of the voices that match the filtering parameters", async () => {
+    try {
+      const voices: any = await Voice.list({ tags: "fun", gender: "male", language: "english" });
       expect(Array.isArray(voices.voices)).toBe(true);
     } catch (e) {
       console.error(e);
