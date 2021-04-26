@@ -30,10 +30,13 @@ describe("Voice operations", () => {
     Aflr.configure({ apiKey, debug });
   });
 
+  let allVoicesCount: number;
+
   test("It should list all of the voices", async () => {
     try {
       const voices: any = await Voice.list();
       expect(Array.isArray(voices.voices)).toBe(true);
+      allVoicesCount = voices.voices.length;
     } catch (e) {
       console.error(e);
       throw new Error("test failed");
@@ -44,6 +47,17 @@ describe("Voice operations", () => {
     try {
       const voices: any = await Voice.list({ tags: "fun", gender: "male", language: "english" });
       expect(Array.isArray(voices.voices)).toBe(true);
+      expect(voices.voices.length).toBeLessThanOrEqual(allVoicesCount);
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  });
+
+  test("It should list all of the available filtering parameters", async () => {
+    try {
+      const parameters: any = await Voice.parameters();
+      expect(parameters !== null && typeof parameters === "object").toBe(true);
     } catch (e) {
       console.error(e);
       throw new Error("test failed");
