@@ -94,7 +94,6 @@ describe("Mastering operations", () => {
       expect(rawResult.script).toEqual(testValues);
       expect(rawResult.url.startsWith("https://")).toBe(true);
       expect(rawResult.url).toMatch(`${testValues}/${testValues}/${testValues}`);
-      expect(true).toBe(true);
     } catch (e) {
       console.error(e);
       throw new Error("test failed");
