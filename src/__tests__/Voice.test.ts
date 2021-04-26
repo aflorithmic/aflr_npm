@@ -45,12 +45,28 @@ describe("Voice operations", () => {
 
   test("It should list all of the voices that match the filtering parameters", async () => {
     try {
-      const voices: any = await Voice.list({ tags: "fun", gender: "male", language: "english" });
+      const voices: any = await Voice.list({
+        tags: "fun",
+        gender: "male",
+        language: "english"
+      });
       expect(Array.isArray(voices.voices)).toBe(true);
       expect(voices.voices.length).toBeLessThanOrEqual(allVoicesCount);
     } catch (e) {
       console.error(e);
       throw new Error("test failed");
+    }
+  });
+
+  test("It should not return any voice, and should list available filtering parmeters", async () => {
+    try {
+      await Voice.list({
+        notExistingFilteringParameter: "value"
+      });
+      throw new Error("test failed");
+    } catch (e) {
+      expect(e).toHaveProperty("message");
+      expect(e).toHaveProperty("allowedFilteringParameters");
     }
   });
 
