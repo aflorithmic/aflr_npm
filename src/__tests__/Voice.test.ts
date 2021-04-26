@@ -57,7 +57,7 @@ describe("Voice operations", () => {
   test("It should list all of the available filtering parameters", async () => {
     try {
       const parameters: any = await Voice.parameters();
-      expect(parameters !== null && typeof parameters === "object").toBe(true);
+      expect(typeof parameters === "object").toBe(true);
     } catch (e) {
       console.error(e);
       throw new Error("test failed");
