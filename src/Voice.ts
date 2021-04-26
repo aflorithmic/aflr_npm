@@ -21,7 +21,6 @@ export class VoiceClass {
    * List all voices
    */
   public list(params?: IVoiceFilteringBody): Promise<unknown> {
-    console.log(params);
     if (!this.#initialized) {
       isInitializedError();
     }
