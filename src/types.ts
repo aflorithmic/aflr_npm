@@ -54,4 +54,5 @@ export interface IVoiceFilteringBody {
   ageBracket?: string;
   tags?: string;
   industryExamples?: string;
+  [key: string]: any;
 }
