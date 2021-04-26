@@ -44,3 +44,14 @@ export interface IMasteringBody {
   backgroundTrackId: string;
   audience?: [{ [key: string]: string }];
 }
+
+export interface IVoiceFilteringBody {
+  providerFullName?: string;
+  provider?: string;
+  gender?: string;
+  language?: string;
+  accent?: string;
+  ageBracket?: string;
+  tags?: string;
+  industryExamples?: string;
+}
