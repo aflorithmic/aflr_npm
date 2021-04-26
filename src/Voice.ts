@@ -1,7 +1,7 @@
 import { Aflr } from "./Aflr";
 import { isInitializedError, isSubmoduleAlreadyInitializedError } from "./Errors";
 import { RequestBase } from "./RequestBase";
-import { IConfig } from "./types";
+import { IConfig, IVoiceFilteringBody } from "./types";
 
 export class VoiceClass {
   #initialized = false;
@@ -20,11 +20,12 @@ export class VoiceClass {
   /**
    * List all voices
    */
-  public list(): Promise<unknown> {
+  public list(params?: IVoiceFilteringBody): Promise<unknown> {
+    console.log(params);
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest(this.#url);
+    return this.#RequestClass.getRequest(this.#url, "", { params });
   }
 
   public reset(): void {
