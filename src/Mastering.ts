@@ -1,7 +1,7 @@
 import { Aflr } from "./Aflr";
 import { isInitializedError, isSubmoduleAlreadyInitializedError } from "./Errors";
 import { RequestBase } from "./RequestBase";
-import { IConfig, IMasteringBody } from "./types";
+import { IConfig, IMasteringBody, PersonalisationParameters } from "./types";
 
 export class MasteringClass {
   #initialized = false;
@@ -24,7 +24,7 @@ export class MasteringClass {
    * @param scriptId
    * @param parameters
    */
-  public retrieve(scriptId: string, parameters: Record<string, string> = {}): Promise<unknown> {
+  public retrieve(scriptId: string, parameters: PersonalisationParameters = {}): Promise<unknown> {
     if (!this.#initialized) {
       isInitializedError();
     }
