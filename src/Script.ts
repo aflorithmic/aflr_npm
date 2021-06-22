@@ -7,14 +7,14 @@ export class ScriptClass {
   #initialized = false;
   #RequestClass!: RequestBase;
   #url = "";
-  #randomUrl = "";
+  #random_url = "";
 
   public configure(config: IConfig, requestClass: RequestBase): void {
     if (this.#initialized) {
       isSubmoduleAlreadyInitializedError();
     }
     this.#url = `${config.baseUrl}/script`;
-    this.#randomUrl = `${config.baseUrl}/script/random`;
+    this.#random_url = `${config.baseUrl}/script/random`;
     this.#initialized = true;
     this.#RequestClass = requestClass;
   }
@@ -48,7 +48,7 @@ export class ScriptClass {
     if (!this.#initialized) {
       isInitializedError();
     }
-    return this.#RequestClass.getRequest(this.#randomUrl, "", { params: { category } });
+    return this.#RequestClass.getRequest(this.#random_url, "", { params: { category } });
   }
 
   /**
@@ -67,7 +67,7 @@ export class ScriptClass {
     // @ts-ignore
     this.#RequestClass = undefined;
     this.#url = "";
-    this.#randomUrl = "";
+    this.#random_url = "";
   }
 }
 
