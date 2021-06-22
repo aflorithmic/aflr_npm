@@ -81,13 +81,21 @@ export interface IMasteringBody {
 }
 
 export interface IVoiceFilteringBody {
+  /** Try with one of: amazon polly, google, microsoft azure, aflorithmic labs */
   providerFullName?: string;
+  /** Try one of: google, polly, azure, msnr */
   provider?: string;
+  /** Try with one of: male, female */
   gender?: string;
+  /** Try with one of: english, spanish, french, german */
   language?: string;
+  /** Try with one of: american, british, neutral, portuguese/brazilian, american soft, mexican, australian */
   accent?: string;
+  /** Try with one of: adult, child, senior */
   ageBracket?: string;
+  /** Try with one or more (separated by commas) of: steady, confident, balanced, informative, serious, instructional, slow, storytelling, calm, clear, deep, formal, sad, thin, fast, upbeat, fun, energetic, tense, very fast, flat, low pitched, high pitched, low-pitched, sing-y, cooperative, kind, stable, monotonous, neutral, responsible, business man, straight to the point, knowledgeable, focused, newscastery, newsreader, interviewer, reliable, friendly, welcoming, good for handing out information, slightly friendly */
   tags?: string;
+  /** Try with one or more (separated by commas) of: fitness, business, commercial, fashion, travel, audiobook, real estate, faith, health industry, comercial, realestate, kids entertainment, games, customer service, education, storytelling, entertainment, kids, education audiobook */
   industryExamples?: string;
   [key: string]: any;
 }
