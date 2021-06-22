@@ -7,12 +7,14 @@ export class ScriptClass {
   #initialized = false;
   #RequestClass!: RequestBase;
   #url = "";
+  #randomUrl = "";
 
   public configure(config: IConfig, requestClass: RequestBase): void {
     if (this.#initialized) {
       isSubmoduleAlreadyInitializedError();
     }
     this.#url = `${config.baseUrl}/script`;
+    this.#randomUrl = `${config.baseUrl}/script/random`;
     this.#initialized = true;
     this.#RequestClass = requestClass;
   }
@@ -39,6 +41,17 @@ export class ScriptClass {
   }
 
   /**
+   * Retrieve random text from a list of categories
+   * @param category The category from which the random text is retrieved. If no category is specified, the function defaults to "FunFact" - Categories currently available: "BibleVerse", "FunFact", "InspirationalQuote", "Joke", "MovieSynopsis", "Poem", "PhilosophicalQuestion", "Recipe", "TriviaQuestion"
+   */
+  public getRandomText(category?: string): Promise<unknown> {
+    if (!this.#initialized) {
+      isInitializedError();
+    }
+    return this.#RequestClass.getRequest(this.#randomUrl, "", { params: { category } });
+  }
+
+  /**
    * Create a new script
    * @param data
    */
@@ -54,6 +67,7 @@ export class ScriptClass {
     // @ts-ignore
     this.#RequestClass = undefined;
     this.#url = "";
+    this.#randomUrl = "";
   }
 }
 

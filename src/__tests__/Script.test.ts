@@ -90,4 +90,35 @@ describe("Script operations", () => {
       throw new Error("test failed");
     }
   });
+
+  test("It should retrieve a random script text", async () => {
+    try {
+      const randomText = await Script.getRandomText();
+      expect(randomText).toBeDefined();
+      expect(typeof randomText).toBe("string");
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  });
+
+  test("It should retrieve a random script text with category", async () => {
+    try {
+      const randomText = await Script.getRandomText("BibleVerse");
+      expect(randomText).toBeDefined();
+      expect(typeof randomText).toBe("string");
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  });
+
+  test("It should fail to retrieve a random script text with non-existing category", async () => {
+    try {
+      await Script.getRandomText("~");
+    } catch (e) {
+      expect(e).toHaveProperty("message");
+      expect(e?.message).toMatch("category provided does not exist");
+    }
+  });
 });
