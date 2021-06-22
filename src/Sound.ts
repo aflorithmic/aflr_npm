@@ -9,6 +9,7 @@ export class SoundClass {
   #url = "";
   #file_url = "";
   #bg_url = "";
+  #template_url = "";
 
   public configure(config: IConfig, requestClass: RequestBase): void {
     if (this.#initialized) {
@@ -16,7 +17,8 @@ export class SoundClass {
     }
     this.#url = `${config.baseUrl}/sound`;
     this.#file_url = `${config.baseUrl}/file/sound`;
-    this.#bg_url = `${config.baseUrl}/file/bg`;
+    this.#bg_url = `${config.baseUrl}/file/background_track`;
+    this.#template_url = `${config.baseUrl}/file/soundtemplates`;
     this.#initialized = true;
     this.#RequestClass = requestClass;
   }
@@ -45,13 +47,23 @@ export class SoundClass {
   }
 
   /**
-   * List all background tracks
+   * List all background tracks including a 15 seconds audio snippet
    */
   public list(): Promise<unknown> {
     if (!this.#initialized) {
       isInitializedError();
     }
     return this.#RequestClass.getRequest(this.#bg_url);
+  }
+
+  /**
+   * List all the available sound templates
+   */
+  public templates(): Promise<unknown> {
+    if (!this.#initialized) {
+      isInitializedError();
+    }
+    return this.#RequestClass.getRequest(this.#template_url);
   }
 
   public reset(): void {
@@ -61,6 +73,7 @@ export class SoundClass {
     this.#url = "";
     this.#file_url = "";
     this.#bg_url = "";
+    this.#template_url = "";
   }
 }
 
