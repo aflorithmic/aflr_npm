@@ -16,17 +16,38 @@ export enum ErrorTypes {
 }
 
 export interface IScriptBody {
+  /** Text for your script. A script can contain multiple sections and SSML tags. Learn more about scriptText details [here](https://docs.api.audio/docs/script-2) */
   scriptText: string;
+  /** The name of your project. Default value is "default" */
   projectName?: string;
+  /** The name of your module. Default value is "default" */
   moduleName?: string;
+  /** The name of your script. Default value is "default" */
   scriptName?: string;
+  /** Custom identifier for your script. If scriptId parameter is used, then projectName, moduleName and scriptName are required parameters. */
   scriptId?: string;
 }
 
-export interface ISpeechBody {
+export interface ISpeechBody extends SectionConfig {
   scriptId: string;
-  voice?: string;
-  speed?: string;
+  speed?: string; // re-defining this because it can only be string in speech body, but it must be a number in section config
+  /** List of dicts containing the personalisation parameters as key-value pairs. This parameter depends on the number of parameters you used in your script resource. For instance, if in the script resource you have `scriptText="Hello {{name}} {{lastname}}"`, the audience should be: `[{"username": "Elon", "lastname": "Musk"}]` */
+  audience?: Audience;
+  /** A dictionary (key-value pairs), where the key is a section name, and the value is another dictionary with the section configuration ( valid parameters are: voice, speed, effect, silence_padding). If a section is not found here, the section will automatically inherit the voice, speed, effect and silence_padding values you defined above (or the default ones if you don't provide them). See an example below with 2 sections and different configuration parameters being used.
+    ```{
+      "firstsection": {
+          "voice": "Matthew",
+          "speed": 110,
+          "silence_padding": 100,
+          "effect": "dark_father"
+      },
+      "anothersection": {
+          "voice": "en-GB-RyanNeural",
+          "speed": 100
+      }
+    }```
+  */
+  sections?: Record<string, SectionConfig>;
 }
 
 export interface ISyncTTSBody {
@@ -39,10 +60,24 @@ export interface ISoundBody {
   backgroundTrackId: string;
 }
 
+export type SectionConfig = {
+  /** Voice name. See the list of available voices using Voice resource. Default voice is "Joanna".
+   */
+  voice?: string;
+  /** Voice speed. Default speed is 100. */
+  speed?: string | number;
+  /** Put a funny effect in your voice. You can try the following ones: dark_father, chewie, 88b, 2r2d */
+  effect?: EffectOptions;
+  /** Add a silence padding to your speech tracks (in milliseconds). Default is 0 (no padding) */
+  silence_padding?: string | number;
+};
+export type PersonalisationParameters = Record<string, string>;
+export type Audience = [PersonalisationParameters];
+export type EffectOptions = "dark_father" | "chewie" | "88b" | "2r2d";
 export interface IMasteringBody {
   scriptId: string;
   backgroundTrackId: string;
-  audience?: [{ [key: string]: string }];
+  audience?: Audience;
 }
 
 export interface IVoiceFilteringBody {

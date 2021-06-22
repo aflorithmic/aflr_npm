@@ -1,7 +1,7 @@
 import { Aflr } from "./Aflr";
 import { isInitializedError, isSubmoduleAlreadyInitializedError } from "./Errors";
 import { RequestBase } from "./RequestBase";
-import { IConfig, ISpeechBody } from "./types";
+import { IConfig, ISpeechBody, PersonalisationParameters } from "./types";
 
 export class SpeechClass {
   #initialized = false;
@@ -20,15 +20,21 @@ export class SpeechClass {
   }
 
   /**
-   * Get speech url by script id
+   * Get speech url by script id, section and parameters
    * @param scriptId
+   * @param section The script section name for the first section. The default name for a script section is "default". NOTE: At the moment, Only scripts with 1 section are supported. If the scripts contain more than one section, only the first section can be retrieved.
+   * @param parameters Dict containing the personalisation parameters for the first section of the script. This parameter depends on the parameters you used in your script's resource section. If this parameter is used, `section` must be specified.
    */
-  public retrieve(scriptId: string): Promise<unknown> {
+  public retrieve(
+    scriptId: string,
+    section?: string,
+    parameters?: PersonalisationParameters
+  ): Promise<unknown> {
     if (!this.#initialized) {
       isInitializedError();
     }
     return this.#RequestClass.getRequest(this.#file_url, undefined, {
-      params: { scriptId },
+      params: { scriptId, section, parameters },
       timeout: 30000
     });
   }
@@ -38,29 +44,6 @@ export class SpeechClass {
    * @param data
    */
   public create(data: ISpeechBody): Promise<unknown> {
-    // todo: remove
-
-    // @ts-ignore
-    if (data["scriptSpeed"]) {
-      // @ts-ignore
-      data["speed"] = data["scriptSpeed"];
-      // @ts-ignore
-      delete data["scriptSpeed"];
-      console.log(
-        "scriptSpeed is renamed to speed, it will be deprecated in the next minor version - AFLR"
-      );
-    }
-    // @ts-ignore
-    if (data["voiceName"]) {
-      // @ts-ignore
-      data["voice"] = data["voiceName"];
-      // @ts-ignore
-      delete data["voiceName"];
-      console.log(
-        "voiceName is renamed to voice, it will be deprecated in the next minor version - AFLR"
-      );
-    }
-
     if (!this.#initialized) {
       isInitializedError();
     }

@@ -30,7 +30,8 @@ describe("Speech operations", () => {
     Aflr.reset();
     Aflr.configure({ apiKey, debug });
   });
-  const testScriptText = "Hey testing testing!";
+  const testScriptText =
+    "<<sectionName::hello>> Hello {{username|buddy}} <<sectionName::bye>> Good bye from {{location|istanbul}}";
   const testValues = "test6";
   let createdScriptId: string;
 
@@ -48,7 +49,10 @@ describe("Speech operations", () => {
       const result: any = await Speech.create({
         scriptId: createdScriptId,
         voice: "Joanna",
-        speed: "100"
+        speed: "100",
+        effect: "dark_father",
+        silence_padding: 1200,
+        audience: [{ username: "salih", location: "london" }]
       });
 
       expect(result.message).toBeDefined();
@@ -62,6 +66,21 @@ describe("Speech operations", () => {
   test("It should retrieve the created speech", async () => {
     try {
       const rawResult: any = await Speech.retrieve(createdScriptId);
+      expect(rawResult.default).toBeDefined();
+      expect(rawResult.default.startsWith("https://")).toBe(true);
+      expect(rawResult.default).toMatch(`${testValues}/${testValues}/${testValues}`);
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  }, 30000);
+
+  test("It should retrieve the created speech with section", async () => {
+    try {
+      const rawResult: any = await Speech.retrieve(createdScriptId, "hello", {
+        username: "salih",
+        location: "london"
+      });
       expect(rawResult.default).toBeDefined();
       expect(rawResult.default.startsWith("https://")).toBe(true);
       expect(rawResult.default).toMatch(`${testValues}/${testValues}/${testValues}`);
