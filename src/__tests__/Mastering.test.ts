@@ -78,7 +78,7 @@ describe("Mastering operations", () => {
       const bg_tracks: any = await Sound.list();
       const rawResult: any = await Mastering.create({
         scriptId: createdScriptId,
-        backgroundTrackId: bg_tracks[0]["id"]
+        backgroundTrackId: bg_tracks["tracklist"][0]
       });
       expect(rawResult.Message).toBeDefined();
       expect(rawResult.Message).toMatch(/successful/gi);

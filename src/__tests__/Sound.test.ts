@@ -77,7 +77,7 @@ describe("Sound operations", () => {
       const bg_tracks: any = await Sound.list();
       const rawResult: any = await Sound.create({
         scriptId: createdScriptId,
-        backgroundTrackId: bg_tracks[0]["id"]
+        backgroundTrackId: bg_tracks["tracklist"][0]
       });
       expect(rawResult.url.startsWith("https://")).toBe(true);
       expect(rawResult.url).toMatch(`${testValues}/${testValues}/${testValues}`);
@@ -101,8 +101,12 @@ describe("Sound operations", () => {
   test("It should list all the background tracks", async () => {
     try {
       const rawResult: any = await Sound.list();
-      expect(rawResult instanceof Array).toBe(true);
-      rawResult.every((url: any) => expect(url).toHaveProperty("id"));
+      expect(rawResult).toHaveProperty("tracklist");
+      expect(rawResult).toHaveProperty("trackUrls");
+      expect(Array.isArray(rawResult?.tracklist)).toBe(true);
+      for (const value of rawResult?.trackUrls) {
+        expect(typeof value).toEqual("string");
+      }
     } catch (e) {
       console.error(e);
       throw new Error("test failed");
