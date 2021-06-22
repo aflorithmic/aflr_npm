@@ -104,7 +104,7 @@ describe("Sound operations", () => {
       expect(rawResult).toHaveProperty("tracklist");
       expect(rawResult).toHaveProperty("trackUrls");
       expect(Array.isArray(rawResult?.tracklist)).toBe(true);
-      for (const value of rawResult?.trackUrls) {
+      for (const value in rawResult?.trackUrls) {
         expect(typeof value).toEqual("string");
       }
     } catch (e) {

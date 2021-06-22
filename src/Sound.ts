@@ -24,7 +24,7 @@ export class SoundClass {
   }
 
   /**
-   * Get sound by scriptId & parameters
+   * Get sound by script id
    * @param scriptId
    * @param parameters
    */
