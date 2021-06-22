@@ -32,7 +32,7 @@ describe("Sound operations", () => {
     Aflr.configure({ apiKey, debug });
   });
   const testScriptText = "Hey testing testing!";
-  const testValues = "test9";
+  const testValues = "test10";
   let createdScriptId: string;
 
   test("It should create a speech from a new script to test the sound", async () => {
