@@ -21,7 +21,6 @@ async function example() {
 
     let speechResult = await Aflr.Speech.retrieve(script["scriptId"]);
     console.log(speechResult);
-
   } catch (e) {
     console.error(e);
   }
