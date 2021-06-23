@@ -94,3 +94,8 @@ export interface IVoiceFilteringBody {
   industryExamples?: string;
   [key: string]: any;
 }
+
+export interface ISyncTTSBody {
+  voice: string;
+  text: string;
+}
