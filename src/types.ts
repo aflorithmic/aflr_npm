@@ -50,11 +50,6 @@ export interface ISpeechBody extends SectionConfig {
   sections?: Record<string, SectionConfig>;
 }
 
-export interface ISyncTTSBody {
-  voice: string;
-  text: string;
-}
-
 export interface ISoundBody {
   scriptId: string;
   backgroundTrackId: string;

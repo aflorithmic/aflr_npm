@@ -22,11 +22,6 @@ async function example() {
     let speechResult = await Aflr.Speech.retrieve(script["scriptId"]);
     console.log(speechResult);
 
-    let syncSpeechResult = await Aflr.SyncTTS.create({
-      text: "Instantly converted to text to speech",
-      voice: "salih"
-    });
-    console.log(syncSpeechResult);
   } catch (e) {
     console.error(e);
   }
