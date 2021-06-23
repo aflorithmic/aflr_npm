@@ -99,4 +99,24 @@ describe("Mastering operations", () => {
       throw new Error("test failed");
     }
   }, 30000);
+
+  test("It should create & retrieve the public mastering file", async () => {
+    try {
+      const bg_tracks: any = await Sound.list();
+      await Mastering.create({
+        scriptId: createdScriptId,
+        backgroundTrackId: bg_tracks["tracklist"][0],
+        public: true,
+        vast: true
+      });
+      const rawResult: any = await Mastering.retrieve(createdScriptId, {}, true, true);
+      expect(rawResult.script).toEqual(testValues);
+      expect(rawResult.url.startsWith("https://")).toBe(true);
+      expect(rawResult.url).toMatch(`${testValues}/${testValues}/${testValues}`);
+      expect(rawResult.url).toMatch("public");
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  }, 60000);
 });
