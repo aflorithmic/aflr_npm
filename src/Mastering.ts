@@ -22,14 +22,21 @@ export class MasteringClass {
   /**
    * Get mastering by scriptId & parameters
    * @param scriptId
-   * @param parameters
+   * @param parameters Object containing the audience item you want to retrieve.
+   * @param _public To store the mastered file in a public s3 folder. Default value is `false`. Warning - This will cause your mastered files to be public to anyone in the internet. Use this at your own risk.
+   * @param vast To create a VAST file of your mastered file. The `vast` flag only works if `public` is `True`.
    */
-  public retrieve(scriptId: string, parameters: PersonalisationParameters = {}): Promise<unknown> {
+  public retrieve(
+    scriptId: string,
+    parameters: PersonalisationParameters = {},
+    _public = false,
+    vast = false
+  ): Promise<unknown> {
     if (!this.#initialized) {
       isInitializedError();
     }
     return this.#RequestClass.getRequest(this.#file_url, "", {
-      params: { ...parameters, scriptId }
+      params: { ...parameters, scriptId, public: _public, vast }
     });
   }
 

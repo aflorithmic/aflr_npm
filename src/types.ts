@@ -31,9 +31,9 @@ export interface IScriptBody {
 export interface ISpeechBody extends SectionConfig {
   scriptId: string;
   speed?: string; // re-defining this because it can only be string in speech body, but it must be a number in section config
-  /** List of dicts containing the personalisation parameters as key-value pairs. This parameter depends on the number of parameters you used in your script resource. For instance, if in the script resource you have `scriptText="Hello {{name}} {{lastname}}"`, the audience should be: `[{"username": "Elon", "lastname": "Musk"}]` */
+  /** List of objects containing the personalisation parameters as key-value pairs. This parameter depends on the number of parameters you used in your script resource. For instance, if in the script resource you have `scriptText="Hello {{name}} {{lastname}}"`, the audience should be: `[{"username": "Elon", "lastname": "Musk"}]` */
   audience?: Audience;
-  /** A dictionary (key-value pairs), where the key is a section name, and the value is another dictionary with the section configuration ( valid parameters are: voice, speed, effect, silence_padding). If a section is not found here, the section will automatically inherit the voice, speed, effect and silence_padding values you defined above (or the default ones if you don't provide them). See an example below with 2 sections and different configuration parameters being used.
+  /** An object (key-value pairs), where the key is a section name, and the value is another object with the section configuration ( valid parameters are: voice, speed, effect, silence_padding). If a section is not found here, the section will automatically inherit the voice, speed, effect and silence_padding values you defined above (or the default ones if you don't provide them). See an example below with 2 sections and different configuration parameters being used.
     ```{
       "firstsection": {
           "voice": "Matthew",
@@ -71,8 +71,14 @@ export type Audience = [PersonalisationParameters];
 export type EffectOptions = "dark_father" | "chewie" | "88b" | "2r2d";
 export interface IMasteringBody {
   scriptId: string;
+  /** The background track file ID. */
   backgroundTrackId: string;
+  /** List of objects containing the personalisation parameters. This parameter depends on the number of parameters you used in your script resource. */
   audience?: Audience;
+  /** To store the mastered file in a public s3 folder. Default value is `false`. Warning - This will cause your mastered files to be public to anyone in the internet. Use this at your own risk. */
+  public?: boolean;
+  /** To create a VAST file of your mastered file. The `vast` flag only works if `public` is `True`. */
+  vast?: boolean;
 }
 
 export interface IVoiceFilteringBody {
