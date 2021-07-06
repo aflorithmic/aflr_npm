@@ -112,4 +112,21 @@ describe("Sound operations", () => {
       throw new Error("test failed");
     }
   });
+
+  test("It should list all the sound templates", async () => {
+    try {
+      const rawResult: any = await Sound.templates();
+      expect(rawResult).toHaveProperty("templates");
+      const { templates } = rawResult;
+      expect(Array.isArray(templates)).toBe(true);
+      for (const template of templates) {
+        expect(template).toHaveProperty("name");
+        expect(template).toHaveProperty("contents");
+        expect(Array.isArray(template?.contents)).toBe(true);
+      }
+    } catch (e) {
+      console.error(e);
+      throw new Error("test failed");
+    }
+  });
 });
