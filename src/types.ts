@@ -33,7 +33,7 @@ export interface ISpeechBody extends SectionConfig {
   speed?: string; // re-defining this because it can only be string in speech body, but it must be a number in section config
   /** List of objects containing the personalisation parameters as key-value pairs. This parameter depends on the number of parameters you used in your script resource. For instance, if in the script resource you have `scriptText="Hello {{name}} {{lastname}}"`, the audience should be: `[{"username": "Elon", "lastname": "Musk"}]` */
   audience?: Audience;
-  /** An object (key-value pairs), where the key is a section name, and the value is another object with the section configuration ( valid parameters are: voice, speed, effect, silence_padding). If a section is not found here, the section will automatically inherit the voice, speed, effect and silence_padding values you defined above (or the default ones if you don't provide them). See an example below with 2 sections and different configuration parameters being used.
+  /** An object (key-value pairs), where the key is a section name, and the value is another object with the section configuration (valid parameters are: voice, speed, effect, silence_padding). If a section is not found here, the section will automatically inherit the voice, speed, effect and silence_padding values you defined above (or the default ones if you don't provide them). See an example below with 2 sections and different configuration parameters being used.
     ```{
       "firstsection": {
           "voice": "Matthew",
@@ -61,18 +61,30 @@ export type SectionConfig = {
   voice?: string;
   /** Voice speed. Default speed is 100. */
   speed?: string | number;
-  /** Put a funny effect in your voice. You can try the following ones: dark_father, chewie, 88b, 2r2d */
+  /** Put a funny effect in your voice. You can try the following ones: dark_father, chewie, 88b, 2r2d, volume_boost_low volume_boost_middle volume_boost_high (Volume boost allows you to adjust the volume of speech. NOTE! Volume boost effect only applies to speech creation and will be overwritten by the mastering process) */
   effect?: EffectOptions;
   /** Add a silence padding to your speech tracks (in milliseconds). Default is 0 (no padding) */
   silence_padding?: string | number;
 };
 export type PersonalisationParameters = Record<string, string>;
 export type Audience = [PersonalisationParameters];
-export type EffectOptions = "dark_father" | "chewie" | "88b" | "2r2d";
+export type EffectOptions =
+  | "dark_father"
+  | "chewie"
+  | "88b"
+  | "2r2d"
+  | "volume_boost_low"
+  | "volume_boost_middle"
+  | "volume_boost_high";
 export interface IMasteringBody {
   scriptId: string;
-  /** The background track file ID. */
-  backgroundTrackId: string;
+  /** The background track file ID.
+   * @deprecated
+   */
+  backgroundTrackId?: string;
+  /** The sound template name. For the list of available sound templates check `Sound.templates()` call
+   */
+  soundTemplate?: string;
   /** List of objects containing the personalisation parameters. This parameter depends on the number of parameters you used in your script resource. */
   audience?: Audience;
   /** To store the mastered file in a public s3 folder. Default value is `false`. Warning - This will cause your mastered files to be public to anyone in the internet. Use this at your own risk. */
