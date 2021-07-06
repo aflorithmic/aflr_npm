@@ -48,6 +48,9 @@ export class MasteringClass {
     if (!this.#initialized) {
       isInitializedError();
     }
+    // TODO: remove
+    if (data.backgroundTrackId)
+      console.log("backgroundTrackId parameter is deprecated. use soundTemplate parameter instead");
     return this.#RequestClass.postRequest(this.#url, data);
   }
 
