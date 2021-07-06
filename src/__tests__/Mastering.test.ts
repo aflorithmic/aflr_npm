@@ -32,8 +32,10 @@ describe("Mastering operations", () => {
     Aflr.reset();
     Aflr.configure({ apiKey, debug });
   });
-  const testScriptText = "Hey testing testing!";
-  const testValues = "test4";
+  const username = "salih";
+  const testScriptText =
+    "Hey <<soundSegment::Main>><<sectionName::hello>>hello world {{username}}, I am in the middle of the city. test number 5";
+  const testValues = "testmastering";
   let createdScriptId: string;
 
   test("It should create a speech from a new script to test the mastering", async () => {
@@ -50,7 +52,8 @@ describe("Mastering operations", () => {
       const result: any = await Speech.create({
         scriptId: createdScriptId,
         voice: "Joanna",
-        speed: "100"
+        speed: "100",
+        audience: [{ username }]
       });
 
       expect(result.message).toBeDefined();
@@ -63,7 +66,9 @@ describe("Mastering operations", () => {
 
   test("It should retrieve the created speech", async () => {
     try {
-      const rawResult: any = await Speech.retrieve(createdScriptId);
+      const rawResult: any = await Speech.retrieve(createdScriptId, "main", {
+        username
+      });
       expect(rawResult.default).toBeDefined();
       expect(rawResult.default.startsWith("https://")).toBe(true);
       expect(rawResult.default).toMatch(`${testValues}/${testValues}/${testValues}`);
@@ -75,10 +80,11 @@ describe("Mastering operations", () => {
 
   test("It should create the mastering template", async () => {
     try {
-      const bg_tracks: any = await Sound.list();
+      const { templates }: any = await Sound.templates();
       const rawResult: any = await Mastering.create({
         scriptId: createdScriptId,
-        backgroundTrackId: bg_tracks["tracklist"][0]
+        soundTemplate: templates[3]["name"],
+        audience: [{ username }]
       });
       expect(rawResult.Message).toBeDefined();
       expect(rawResult.Message).toMatch(/successful/gi);
@@ -90,7 +96,7 @@ describe("Mastering operations", () => {
 
   test("It should retrieve the mastering template", async () => {
     try {
-      const rawResult: any = await Mastering.retrieve(createdScriptId, {});
+      const rawResult: any = await Mastering.retrieve(createdScriptId, { username });
       expect(rawResult.script).toEqual(testValues);
       expect(rawResult.url.startsWith("https://")).toBe(true);
       expect(rawResult.url).toMatch(`${testValues}/${testValues}/${testValues}`);
@@ -102,10 +108,10 @@ describe("Mastering operations", () => {
 
   test("It should create & retrieve the public mastering file", async () => {
     try {
-      const bg_tracks: any = await Sound.list();
+      const { templates }: any = await Sound.templates();
       await Mastering.create({
         scriptId: createdScriptId,
-        backgroundTrackId: bg_tracks["tracklist"][0],
+        soundTemplate: templates[0]["name"],
         public: true,
         vast: true
       });
