@@ -1,5 +1,5 @@
 import { API_BASE_URL, API_BASE_URL_STAGING } from "./constants";
-import { isModuleAlreadyInitializedError, isValidApiKeyError } from "./Errors";
+import { isModuleAlreadyInitializedError, isValidAuthError } from "./Errors";
 import { IConfig, IInputConfig } from "./types";
 import { RequestBase } from "./RequestBase";
 import { ScriptClass } from "./Script";
@@ -37,8 +37,8 @@ class AflrClass {
    * @param config
    */
   public configure(config: IInputConfig): IConfig {
-    if (!config || !config.apiKey) {
-      isValidApiKeyError();
+    if (!config || !(config?.apiKey || config?.bearer)) {
+      isValidAuthError();
     } else if (this.#initialized) {
       isModuleAlreadyInitializedError();
     }
@@ -47,7 +47,7 @@ class AflrClass {
 
     this.#config = { ...config, baseUrl };
     this.#initialized = true;
-    const requestClass = new RequestBase(this.#config.apiKey);
+    const requestClass = new RequestBase(this.#config.apiKey, this.#config.bearer);
     this.#components.map(comp => comp.configure(this.#config, requestClass));
 
     return this.#config;

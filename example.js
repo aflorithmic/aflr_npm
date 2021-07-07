@@ -3,7 +3,11 @@ require("dotenv").config();
 
 async function example() {
   try {
-    Aflr.configure({ apiKey: process.env.API_KEY, debug: true });
+    Aflr.configure({
+      apiKey: process.env.API_KEY,
+      bearer: "eyJraWQiOiJYdERtZGVVTXI0..... (pass one of api key or bearer)",
+      debug: true
+    });
     let script = await Aflr.Script.create({ scriptText: "Hello world" });
     console.log(script);
 

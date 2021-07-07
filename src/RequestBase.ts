@@ -3,8 +3,10 @@ import axios, { AxiosInstance, AxiosRequestConfig } from "axios";
 export class RequestBase {
   #axios: AxiosInstance;
 
-  constructor(apiKey: string) {
-    this.#axios = axios.create({ headers: { "x-api-key": apiKey } });
+  constructor(apiKey?: string, bearer?: string) {
+    if (apiKey) this.#axios = axios.create({ headers: { "x-api-key": apiKey } });
+    else if (bearer) this.#axios = axios.create({ headers: { Authorization: `Bearer ${bearer}` } });
+    else this.#axios = axios.create();
   }
 
   public postRequest(url: string, data: unknown, config: AxiosRequestConfig = {}): any {

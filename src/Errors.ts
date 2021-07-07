@@ -12,6 +12,6 @@ export const isModuleAlreadyInitializedError = (): void => {
   throw new Error(ErrorTypes.alreadyInitializedModule);
 };
 
-export const isValidApiKeyError = (): void => {
-  throw new Error(ErrorTypes.validApiKey);
+export const isValidAuthError = (): void => {
+  throw new Error(ErrorTypes.validAuth);
 };
