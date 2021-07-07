@@ -1,5 +1,6 @@
 export interface IInputConfig {
-  apiKey: string;
+  apiKey?: string;
+  bearer?: string;
   debug?: boolean;
   [key: string]: any;
 }
@@ -9,7 +10,7 @@ export interface IConfig extends IInputConfig {
 }
 
 export enum ErrorTypes {
-  validApiKey = "API key must be a valid string. - AFLR",
+  validAuth = "API key or Bearer token must be a valid string. - AFLR",
   notInitialized = "You should configure the package before using it. - AFLR",
   alreadyInitializedSubmodule = "This submobule has already been initialized and configured, do not try to configure it directly. - AFLR",
   alreadyInitializedModule = "The package has already been initialized and configured. Do not try to configure it again. If you want to reset it, use Aflr.reset() - AFLR"

@@ -15,7 +15,7 @@ describe("Main module initialization", () => {
     expect(() => Aflr.configure({ apiKey, debug })).toThrowError(/has already been initialized/);
   });
 
-  test("It should not throw an error if configured twice after resetting", () => {
+  test("It should NOT throw an error if configured twice after resetting", () => {
     Aflr.configure({ apiKey, debug });
     Aflr.reset();
     expect(() => Aflr.configure({ apiKey, debug })).not.toThrow();
@@ -35,5 +35,11 @@ describe("Main module initialization", () => {
     Aflr.reset();
     const { baseUrl: prodBaseUrl } = Aflr.configure({ apiKey, debug: false });
     expect(prodBaseUrl).toBe(API_BASE_URL);
+  });
+
+  test("It should allow bearer token configuration", () => {
+    Aflr.configure({ bearer: "some token", debug });
+    Aflr.reset();
+    expect(() => Aflr.configure({ apiKey, debug })).not.toThrow();
   });
 });
