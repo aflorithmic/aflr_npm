@@ -1,6 +1,6 @@
-[![npm](https://img.shields.io/npm/v/aflr?style=for-the-badge)](https://www.npmjs.com/package/aflr)
+# THIS PACKAGE IS DEPRECATED. PLEASE USE `"apiaudio"` PACKAGE INSTEAD.
 
-# Aflorithmic Javascript SDK
+# Javascript SDK
 
 ## Documentation
 
